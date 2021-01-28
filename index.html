@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","version":"8.2.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="前端俱乐部">
+<meta property="og:type" content="website">
+<meta property="og:title" content="FrontEnd Club">
+<meta property="og:url" content="http://mulianju.com/index.html">
+<meta property="og:site_name" content="FrontEnd Club">
+<meta property="og:description" content="前端俱乐部">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Mulianju">
+<meta property="article:tag" content="javascript, html, css, html5, css3, 前端, 前端开发, 前端团队, 前端教程, 前端博客, 前端教程">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://mulianju.com/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>FrontEnd Club</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">FrontEnd Club</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端俱乐部</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">81</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">19</span></a></li>
+        <li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mulianju"
+      src="/images/Cloud.jpg">
+  <p class="site-author-name" itemprop="name">Mulianju</p>
+  <div class="site-description" itemprop="description">前端俱乐部</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mulianju" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mulianju" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mulianju@qq.com" title="E-Mail → mailto:mulianju@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/BigNumber/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/BigNumber/" class="post-title-link" itemprop="url">Javascript 双精度浮点数计算精度问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-28 07:24:42" itemprop="dateCreated datePublished" datetime="2021-01-28T07:24:42Z">2021-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们用JS进行浮点数运算时，比如<code>0.1 + 0.2</code>，经常会得到一个意想不到的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">0.1</span> + <span class="number">0.2</span>) <span class="comment">// 0.30000000000000004</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>这个结果是不是很匪夷所思，那么是什么造成这个结果的呢？</p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>简单来说就是因为：EcmaScrpt规范定义，JavaScript中所有的数字（包括整数和小数）都只有一种类型–Number。而Number的实现遵循IEEE 754标准，使用64位固定长度来表示，也就是标准的double双精度浮点数。它的优点是可以归一化处理整数和小数，节省储存空间。而实际计算的时候会转换成二进制计算再转成十进制。进制转换之后会很长，舍去一部分，计算再转回来，就有了精度误差。</p>
+<p>更深度的解析请参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssaylo/archive/2004/01/13/12915966.html">JavaScript 浮点数陷阱以及解法</a></p>
+<p>事实上，这个问题并不只出现在JS里，其他遵循IEEE 754标准的语言，同样存在此问题。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>这个问题既然已经存在很长时间了，那么解决方案自然也就有很多了。</p>
+<h3 id="官方方案"><a href="#官方方案" class="headerlink" title="官方方案"></a>官方方案</h3><p>TC39 已经有一个 Stage 3 的提案 proposal bigint，大数问题有望彻底解决。在浏览器正式支持前，可以使用 Babel 7.0 来实现，它的内部是自动转换成 big-integer 来计算，这样能保持精度但运算效率会降低。</p>
+<h3 id="主动缩小精度范围"><a href="#主动缩小精度范围" class="headerlink" title="主动缩小精度范围"></a>主动缩小精度范围</h3><p>利用toPrecision或toFixed主动把溢出造成的细微差异过滤掉。这种方案吧，只适合浮点数，对于整数的溢出，是束手无策的。</p>
+<h3 id="转为整数计算"><a href="#转为整数计算" class="headerlink" title="转为整数计算"></a>转为整数计算</h3><p>这种方案跟上面的也差不多，只适合小数。对于包含n位小数的number，先乘10的n次方，再进行计算，最后结果再除10的n次方归位</p>
+<h3 id="转为字符串再进行计算"><a href="#转为字符串再进行计算" class="headerlink" title="转为字符串再进行计算"></a>转为字符串再进行计算</h3><p>这种应该是目前最普遍的解决方案了，大多数成熟计算框架都采用的此方案。优点是完全不受number存储空间的限制，可以胜任更准确更精细的计算，缺点是性能相对较差。</p>
+<h3 id="借助第三方计算框架"><a href="#借助第三方计算框架" class="headerlink" title="借助第三方计算框架"></a>借助第三方计算框架</h3><h4 id="math-js"><a href="#math-js" class="headerlink" title="math.js"></a>math.js</h4><p>Math.js是一个用于JavaScript和Node.js的扩展数学库。它具有支持符号计算的灵活表达式解析器，大量内置函数和常量，并提供了集成的解决方案来处理不同的数据类型，例如数字，大数，复数，分数，单位和矩阵。强大且易于使用。</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mathjs.org/">http://mathjs.org/</a><br>中文官网：<a target="_blank" rel="noopener" href="https://www.mathjs.cn/">https://www.mathjs.cn/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/josdejong/mathjs">https://github.com/josdejong/mathjs</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 函数和常量</span></span><br><span class="line">math.round(math.e, <span class="number">3</span>)                <span class="comment">// 2.718</span></span><br><span class="line">math.atan2(<span class="number">3</span>, -<span class="number">3</span>) / math.pi          <span class="comment">// 0.75</span></span><br><span class="line">math.log(<span class="number">10000</span>, <span class="number">10</span>)                  <span class="comment">// 4</span></span><br><span class="line">math.sqrt(-<span class="number">4</span>)                        <span class="comment">// 2i</span></span><br><span class="line">math.derivative(<span class="string">&#x27;x^2 + x&#x27;</span>, <span class="string">&#x27;x&#x27;</span>)      <span class="comment">// 2*x+1</span></span><br><span class="line">math.pow([[-<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">1</span>]], <span class="number">2</span>)</span><br><span class="line">     <span class="comment">// [[7, 0], [0, 7]]</span></span><br><span class="line"><span class="comment">// 表达式</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;1.2 * (2 + 4.5)&#x27;</span>)     <span class="comment">// 7.8</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;12.7 cm to inch&#x27;</span>)     <span class="comment">// 5 inch</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;sin(45 deg) ^ 2&#x27;</span>)     <span class="comment">// 0.5</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;9 / 3 + 2i&#x27;</span>)          <span class="comment">// 3 + 2i</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;det([-1, 2; 3, 1])&#x27;</span>)  <span class="comment">// -7</span></span><br><span class="line"><span class="comment">// 链接</span></span><br><span class="line">math.chain(<span class="number">3</span>)</span><br><span class="line">    .add(<span class="number">4</span>)</span><br><span class="line">    .multiply(<span class="number">2</span>)</span><br><span class="line">    .done() <span class="comment">// 14</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="decimal-js"><a href="#decimal-js" class="headerlink" title="decimal.js"></a>decimal.js</h4><p>此库 与 bignumber.js相似，但是注意此库的精度是以 有效数字 来规定的，而不是小数点的位置. 此库中所有的运算都是四舍五入到 对应的精度(类似于python中的 decimal 模块)，而不是仅仅只是除法运算四舍五入</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/decimal.js/">http://mikemcl.github.io/decimal.js/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/MikeMcl/decimal.js/">https://github.com/MikeMcl/decimal.js/</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="keyword">new</span> Decimal(<span class="number">9</span>)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line">y = <span class="keyword">new</span> Decimal(x)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;5032485723458348569331745.33434346346912144534543&#x27;</span>)</span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;4.321e+4&#x27;</span>)                  <span class="comment">// &#x27;43210&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;-735.0918e-430&#x27;</span>)            <span class="comment">// &#x27;-7.350918e-428&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;5.6700000&#x27;</span>)                 <span class="comment">// &#x27;5.67&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="literal">Infinity</span>)                    <span class="comment">// &#x27;Infinity&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="literal">NaN</span>)                         <span class="comment">// &#x27;NaN&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;.5&#x27;</span>)                        <span class="comment">// &#x27;0.5&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;-0b10110100.1&#x27;</span>)             <span class="comment">// &#x27;-180.5&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0xff.8&#x27;</span>)                    <span class="comment">// &#x27;255.5&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="number">0.046875</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0.046875000000&#x27;</span>)            <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="number">4.6875e-2</span>)                   <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;468.75e-4&#x27;</span>)                 <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0b0.000011&#x27;</span>)                <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0o0.03&#x27;</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0x0.0c&#x27;</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0b1.1p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0o1.4p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Decimal(<span class="string">&#x27;0x1.8p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="bignumber-js"><a href="#bignumber-js" class="headerlink" title="bignumber.js"></a>bignumber.js</h4><p>bignumber.js是一款用于任意精度十进制和非十进制算术的JavaScript库</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://alexbardas.github.io/bignumber.js/">http://alexbardas.github.io/bignumber.js/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/alexbardas/bignumber.js">https://github.com/alexbardas/bignumber.js</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> BigNumber = <span class="built_in">require</span>(<span class="string">&#x27;big-number&#x27;</span>);</span><br><span class="line">BigNumber(<span class="number">5</span>)</span><br><span class="line">    .plus(<span class="number">97</span>)</span><br><span class="line">    .minus(<span class="number">53</span>)</span><br><span class="line">    .plus(<span class="number">434</span>)</span><br><span class="line">    .multiply(<span class="number">5435423</span>)</span><br><span class="line">    .add(<span class="number">321453</span>)</span><br><span class="line">    .multiply(<span class="number">21</span>)</span><br><span class="line">    .div(<span class="number">2</span>)</span><br><span class="line">    .pow(<span class="number">2</span>)</span><br><span class="line"><span class="comment">// 760056543044267246001</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="big-js"><a href="#big-js" class="headerlink" title="big.js"></a>big.js</h4><p>‎Big.js是JavaScript的”bignumber”实现。这意味着您可以使用它以任何精度存储任何量级的数字，并在 JavaScript 中对它们执行数学运算。‎</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/big.js/">http://mikemcl.github.io/big.js/</a><br>Github：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/big.js/">https://github.com/MikeMcl/big.js/</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="keyword">new</span> Big(<span class="number">9</span>)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line">y = <span class="keyword">new</span> Big(x)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Big(<span class="string">&#x27;5032485723458348569331745.33434346346912144534543&#x27;</span>)</span><br><span class="line"><span class="keyword">new</span> Big(<span class="string">&#x27;4.321e+4&#x27;</span>)                  <span class="comment">// &#x27;43210&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Big(<span class="string">&#x27;-735.0918e-430&#x27;</span>)            <span class="comment">// &#x27;-7.350918e-428&#x27;</span></span><br><span class="line">Big(<span class="number">435.345</span>)                         <span class="comment">// &#x27;435.345&#x27;</span></span><br><span class="line"><span class="keyword">new</span> Big()                            <span class="comment">// &#x27;Error: [big.js] Invalid value&#x27;</span></span><br><span class="line">Big()                                <span class="comment">// No error, and a new Big constructor is returned</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34375251/article/details/87972948">深度剖析0.1 +0.2===0.30000000000000004的原因</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011913127?_ea=2804668">如何解决0.1 +0.2===0.30000000000000004类问题</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903486664998925">两分钟解惑 JS 小数计算精度问题</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssaylo/archive/2004/01/13/12915966.html">JavaScript 浮点数陷阱以及解法</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/design-pattern-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/design-pattern-note/" class="post-title-link" itemprop="url">设计模式学习笔记--设计模式的类型和六大原则</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-28 10:31:19" itemprop="dateCreated datePublished" datetime="2019-08-28T10:31:19Z">2019-08-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-28 07:24:42" itemprop="dateModified" datetime="2021-01-28T07:24:42Z">2021-01-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="设计模式简介"><a href="#设计模式简介" class="headerlink" title="设计模式简介"></a>设计模式简介</h2><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
+<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。</p>
+<h2 id="什么是-GOF（四人帮，全拼-Gang-of-Four）？"><a href="#什么是-GOF（四人帮，全拼-Gang-of-Four）？" class="headerlink" title="什么是 GOF（四人帮，全拼 Gang of Four）？"></a>什么是 GOF（四人帮，全拼 Gang of Four）？</h2><p>在 1994 年，由 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides 四人合著出版了一本名为 <strong>《Design Patterns - Elements of Reusable Object-Oriented Software（中文译名：设计模式 - 可复用的面向对象软件元素，下文简称为&lt;设计模式&gt;）》</strong> 的书，该书首次提到了软件开发中设计模式的概念。</p>
+<p>四位作者合称 <strong>GOF（四人帮，全拼 Gang of Four）</strong>。他们所提出的设计模式主要是基于以下的面向对象设计原则。</p>
+<h2 id="设计模式的类型"><a href="#设计模式的类型" class="headerlink" title="设计模式的类型"></a>设计模式的类型</h2><p>根据 <strong>《设计模式》</strong> ，设计模式总共有 23 种基本类型，我们可以把这23种基本类型归纳为三个大类： <strong>创建型模式（Creational Patterns）</strong> 、<strong>结构型模式（Structural Patterns）</strong> 、<strong>行为型模式（Behavioral Patterns）</strong> ，除此之外，<strong>J2EE 设计模式</strong> 也是我们日常使用较多的模式。</p>
+<h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><p>这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</p>
+<ul>
+<li>工厂模式（Factory Pattern）</li>
+<li>抽象工厂模式（Abstract Factory Pattern）</li>
+<li>单例模式（Singleton Pattern）</li>
+<li>建造者模式（Builder Pattern）</li>
+<li>原型模式（Prototype Pattern）</li>
+</ul>
+<h3 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h3><p>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</p>
+<ul>
+<li>适配器模式（Adapter Pattern）</li>
+<li>桥接模式（Bridge Pattern）</li>
+<li>过滤器模式（Filter、Criteria Pattern）</li>
+<li>组合模式（Composite Pattern）</li>
+<li>装饰器模式（Decorator Pattern）</li>
+<li>外观模式（Facade Pattern）</li>
+<li>享元模式（Flyweight Pattern）</li>
+<li>代理模式（Proxy Pattern）</li>
+</ul>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><p>这些设计模式特别关注对象之间的通信。</p>
+<ul>
+<li>责任链模式（Chain of Responsibility Pattern）</li>
+<li>命令模式（Command Pattern）</li>
+<li>解释器模式（Interpreter Pattern）</li>
+<li>迭代器模式（Iterator Pattern）</li>
+<li>中介者模式（Mediator Pattern）</li>
+<li>备忘录模式（Memento Pattern）</li>
+<li>观察者模式（Observer Pattern）</li>
+<li>状态模式（State Pattern）</li>
+<li>空对象模式（Null Object Pattern）</li>
+<li>策略模式（Strategy Pattern）</li>
+<li>模板模式（Template Pattern）</li>
+<li>访问者模式（Visitor Pattern）</li>
+</ul>
+<h3 id="J2EE-模式"><a href="#J2EE-模式" class="headerlink" title="J2EE 模式"></a>J2EE 模式</h3><p>这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。</p>
+<ul>
+<li>MVC 模式（MVC Pattern）</li>
+<li>业务代表模式（Business Delegate Pattern）</li>
+<li>组合实体模式（Composite Entity Pattern）</li>
+<li>数据访问对象模式（Data Access Object Pattern）</li>
+<li>前端控制器模式（Front Controller Pattern）</li>
+<li>拦截过滤器模式（Intercepting Filter Pattern）</li>
+<li>服务定位器模式（Service Locator Pattern）</li>
+<li>传输对象模式（Transfer Object Pattern）</li>
+</ul>
+<h3 id="设计模式基本类型之间的关系图"><a href="#设计模式基本类型之间的关系图" class="headerlink" title="设计模式基本类型之间的关系图"></a>设计模式基本类型之间的关系图</h3><p><img src="/images/articles/the-relationship-between-design-patterns.jpg" alt="设计模式关系图" title="设计模式关系图"></p>
+<h2 id="设计模式的六大原则"><a href="#设计模式的六大原则" class="headerlink" title="设计模式的六大原则"></a>设计模式的六大原则</h2><h3 id="开闭原则（Open-Close-Principle）"><a href="#开闭原则（Open-Close-Principle）" class="headerlink" title="开闭原则（Open Close Principle）"></a>开闭原则（Open Close Principle）</h3><p>开闭原则的意思是：对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</p>
+<h3 id="里氏代换原则（Liskov-Substitution-Principle）"><a href="#里氏代换原则（Liskov-Substitution-Principle）" class="headerlink" title="里氏代换原则（Liskov Substitution Principle）"></a>里氏代换原则（Liskov Substitution Principle）</h3><p>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
+<h3 id="依赖倒转原则（Dependence-Inversion-Principle）"><a href="#依赖倒转原则（Dependence-Inversion-Principle）" class="headerlink" title="依赖倒转原则（Dependence Inversion Principle）"></a>依赖倒转原则（Dependence Inversion Principle）</h3><p>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p>
+<h3 id="接口隔离原则（Interface-Segregation-Principle）"><a href="#接口隔离原则（Interface-Segregation-Principle）" class="headerlink" title="接口隔离原则（Interface Segregation Principle）"></a>接口隔离原则（Interface Segregation Principle）</h3><p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。</p>
+<h3 id="迪米特法则，又称最少知道原则（Demeter-Principle）"><a href="#迪米特法则，又称最少知道原则（Demeter-Principle）" class="headerlink" title="迪米特法则，又称最少知道原则（Demeter Principle）"></a>迪米特法则，又称最少知道原则（Demeter Principle）</h3><p>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。</p>
+<h3 id="合成复用原则（Composite-Reuse-Principle）"><a href="#合成复用原则（Composite-Reuse-Principle）" class="headerlink" title="合成复用原则（Composite Reuse Principle）"></a>合成复用原则（Composite Reuse Principle）</h3><p>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/hexo-cname/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/hexo-cname/" class="post-title-link" itemprop="url">github pages 托管hexo项目的自定义域名方法（附加favicon）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-25 14:41:23" itemprop="dateCreated datePublished" datetime="2018-12-25T14:41:23Z">2018-12-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-28 07:24:42" itemprop="dateModified" datetime="2021-01-28T07:24:42Z">2021-01-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="CNAME"><a href="#CNAME" class="headerlink" title="CNAME"></a>CNAME</h2><p>1.在hexo source文件夹创建一个CNAME文件，文件内容为完整的自定义域名，比如本站<a target="_blank" rel="noopener" href="http://www.mulianju.com/">www.mulianju.com</a><br>2.执行hexo clean清除已经生成的public文件夹内容<br>3.执行hexo g重新生成<br>4.执行hexo d发布网站到github<br>Github服务器会设置mulianju.com为你的主域名，然后将<a target="_blank" rel="noopener" href="http://www.mulianju.com和mulianju.github.com重定向到mulianju.com./">www.mulianju.com和mulianju.github.com重定向到mulianju.com。</a></p>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>登录你的域名管理界面，创建一条CNAME记录，指向github pages项目原有地址<br><img src="/images/articles/cname.png" alt="CNAME" title="CNAME"></p>
+<h2 id="favicon"><a href="#favicon" class="headerlink" title="favicon"></a>favicon</h2><p>顺带提一下favicon吧，刚好操作差不多。<br><img src="/images/articles/favicon.png" alt="favicon" title="favicon"><br>favicon就是打开我们网站的时候，浏览器标签左侧的那个小图标。这个图标通过在网站根目录放一个favicon.ico的图标文件就可以实现。<br>放到我们的hexo里，就是把这个图标文件放到source文件夹然后重复上面提到的清除到发布的操作就可以了~<br>favicon的制作工具可以自行百度，尺寸一般是16x16。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/css3%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/css3%E6%AF%9B%E7%8E%BB%E7%92%83%E6%95%88%E6%9E%9C/" class="post-title-link" itemprop="url">css毛玻璃效果</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-25 14:37:57" itemprop="dateCreated datePublished" datetime="2018-12-25T14:37:57Z">2018-12-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-28 07:24:42" itemprop="dateModified" datetime="2021-01-28T07:24:42Z">2021-01-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/css/" itemprop="url" rel="index"><span itemprop="name">css</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>先放源码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>);</span><br><span class="line">    <span class="attribute">-webkit-filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">    <span class="attribute">-moz-filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">    <span class="attribute">-ms-filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">    <span class="attribute">-o-filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(<span class="number">2px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外有两点需要注意：</p>
+<ol>
+<li>对元素直接使用模糊会将其内容全部模糊掉，为了保证文字不会模糊掉需要多一个层单独应用模糊效果。</li>
+<li>模糊效果并不会应用到其背后的元素上，所以需要使用 content 区域有和背景相同的背景图并进行模糊。</li>
+</ol>
+<p>阅读原文：<a target="_blank" rel="noopener" href="http://www.eyezip.com/css/262/css%e6%af%9b%e7%8e%bb%e7%92%83%e6%95%88%e6%9e%9c/" title="css毛玻璃效果">css毛玻璃效果</a>.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mulianju</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>
