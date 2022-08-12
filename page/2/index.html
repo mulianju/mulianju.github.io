@@ -189,99 +189,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://mulianju.com/already-included-file-name./">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Cloud.jpg">
-      <meta itemprop="name" content="Mulianju">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FrontEnd Club">
-      <meta itemprop="description" content="前端俱乐部">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | FrontEnd Club">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/already-included-file-name./" class="post-title-link" itemprop="url">VUE报错：Already included file name</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-26 14:29:21" itemprop="dateCreated datePublished" datetime="2022-07-26T14:29:21Z">2022-07-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>最近在日常开发中，项目报了一个莫名其妙的错误：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Already included file name <span class="string">&#x27;d:/work/work/git/base-biz/src/modules/nps/pages/ItemRadioInput.vue&#x27;</span> differs from file name <span class="string">&#x27;d:/work/work/git/base-biz/src/modules/nps/pages/itemRadioInput.vue&#x27;</span> only <span class="keyword">in</span> casing.</span><br></pre></td></tr></table></figure>
-
-<p>看字面意思，好像是重复引用了，于是全局搜索了一下相关文件的引入，结果并没有，又反复确认了引入路径，发现也完全没什么问题。</p>
-<p><img data-src="/../images/articles/already-included-file-name/error.png" alt="/images/articles/already-included-file-name/error"></p>
-<p>后来经过查询资料，得到以下两种解决方案：</p>
-<h3 id="1-去掉引入文件的-vue后缀名："><a href="#1-去掉引入文件的-vue后缀名：" class="headerlink" title="1. 去掉引入文件的.vue后缀名："></a>1. 去掉引入文件的<code>.vue</code>后缀名：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ItemRadioInput</span> <span class="keyword">from</span> <span class="string">&quot;./ItemRadioInput&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-利用alias别名，用绝对路径形式引入相关文件："><a href="#2-利用alias别名，用绝对路径形式引入相关文件：" class="headerlink" title="2. 利用alias别名，用绝对路径形式引入相关文件："></a>2. 利用alias别名，用绝对路径形式引入相关文件：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">ItemRadioInput</span> <span class="keyword">from</span> <span class="string">&quot;@/components/ItemRadioInput.vue&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://mulianju.com/develop-vscode-plugins/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -554,6 +461,106 @@
 <p><strong>参考资料：</strong></p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/section/1138683">https://cloud.tencent.com/developer/section/1138683</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/implements/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | FrontEnd Club">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/implements/" class="post-title-link" itemprop="url">implements</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-28 17:51:58" itemprop="dateCreated datePublished" datetime="2022-06-28T17:51:58Z">2022-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="implements"><a href="#implements" class="headerlink" title="implements"></a>implements</h2><p><code>implements</code>是一个类实现一个接口用的关键字.实现一个接口，必须实现接口中的所有方法。</p>
+<p><strong>用途</strong>：类实现一个接口用的关键字<br><strong>性质</strong>：抽象方法</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>接口可以被多重实现（implements）,抽象类只能被单一继承（extends）</li>
+<li>接口只有定义,抽象类可以有定义和实现</li>
+<li>接口的字段定义默认为:public static final, 抽象类字段默认是”friendly”(本包可见)</li>
+</ol>
+<h2 id="与Extends的区别"><a href="#与Extends的区别" class="headerlink" title="与Extends的区别"></a>与Extends的区别</h2><ul>
+<li><code>extends</code>，表示对父类的继承，可以实现父类，也可以调用父类初始化 <code>this.parent()</code>。而且会覆盖父类定义的变量或者函数。</li>
+<li><code>implements</code>，表示对接口的实现，接口通过关键字<code>interface</code> 进行定义。eg：<code>public class S implements F</code>，在接口F中对方法进行声明，在类S中对该方法进行实现。</li>
+</ul>
+<p>这两种实现的具体使用，是要看项目的实际情况：</p>
+<ul>
+<li>需要实现，不可以修改，用<code>implements</code>，只定义接口。</li>
+<li>需要具体实现，或者可以被修改，扩展性好，用<code>extends</code>。</li>
 </ul>
 
       

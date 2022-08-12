@@ -189,112 +189,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://mulianju.com/unable-to-verify-the-first-certificate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Cloud.jpg">
-      <meta itemprop="name" content="Mulianju">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FrontEnd Club">
-      <meta itemprop="description" content="前端俱乐部">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | FrontEnd Club">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/unable-to-verify-the-first-certificate/" class="post-title-link" itemprop="url">npm/yarn安装时"unable to verify the first certificate"报错处理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-24 14:58:47" itemprop="dateCreated datePublished" datetime="2022-06-24T14:58:47Z">2022-06-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>刚刚在安装<code>electron</code>遇到个问题，无论<code>npm</code>还是<code>yarn</code>都会报<code>unable to verify the first certificate</code>这个错误，翻译过来就是“无法验证第一个证书”（第一个证书是什么鬼，为啥是第一个）。</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>提到证书，首先就会想到https协议，经过搜索相关问题，果然查到：2017年2月27日起，<code>npm</code>不再支持自签名证书。<code>npm install</code>走的是https协议，需要通过数字证书来保证的。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>网络上的解决方案有很多，我这里总结一下：</p>
-<h3 id="1-取消ssl验证"><a href="#1-取消ssl验证" class="headerlink" title="1. 取消ssl验证"></a>1. 取消ssl验证</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 取消`ssl`验证</span><br><span class="line">npm config <span class="built_in">set</span> strict-ssl <span class="literal">false</span> // npm</span><br><span class="line">yarn config <span class="built_in">set</span> strict-ssl <span class="literal">false</span> // yarn</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>设置完成后，我们可以通过以下命令来查看设置后的状态</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// 取消`ssl`验证</span><br><span class="line">npm config get strict-ssl // <span class="literal">false</span></span><br><span class="line">yarn config get strict-ssl // <span class="literal">false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>确认没问题后，再进行安装操作，理论上就可以跳过<code>ssl</code>验证了。</p>
-<h3 id="2-设置一个空证书"><a href="#2-设置一个空证书" class="headerlink" title="2. 设置一个空证书"></a>2. 设置一个空证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># npm</span></span><br><span class="line">npm install npm -g --ca=<span class="string">&quot;&quot;</span></span><br><span class="line">npm config <span class="built_in">set</span> ca=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">npm install npm -g --ca=<span class="string">&quot;&quot;</span></span><br><span class="line">npm config <span class="built_in">set</span> ca=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>一般情况，上面两种方案就已经可以搞定了。</p>
-<h3 id="3-取消ssl验证"><a href="#3-取消ssl验证" class="headerlink" title="3. 取消ssl验证"></a>3. 取消<code>ssl</code>验证</h3><p>如果以上方案还是没能解决问题，那一定就是因为开了代理工具了，比如<code>FastGitHub</code>。</p>
-<p><code>https</code>是一种安全的协议，确保服务端与客户端之间传送正确性的。现在中间多了一个代理转发，有一些连接会觉得这样不靠谱，不允许连接。</p>
-<p>为了绕过这个验证，可以通过修改<code>npm</code>源来实现：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># electron可以单独设置下载源 </span></span><br><span class="line"><span class="built_in">set</span> ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/</span><br><span class="line"></span><br><span class="line"><span class="comment"># npm可以直接设置全局下载源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry http://registry.cnpmjs.org/</span><br><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>我们也可以通过<code>.npmrc</code>来设置单独某一个项目的下载源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># registry=https://registry.npm.taobao.org</span></span><br><span class="line"><span class="comment"># sass_binary_site=https://npm.taobao.org/mirrors/node-sass/</span></span><br><span class="line">ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/</span><br></pre></td></tr></table></figure>
-
-<p>当然，<code>nrm</code>这种下载源管理工具也是个不错的选择</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 首先全局安装nrm</span></span><br><span class="line">npm i nrm -g</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看全部的有效下载源</span></span><br><span class="line">nrm <span class="built_in">ls</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用某个源，例如taobao</span></span><br><span class="line">nrm use taobao</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://mulianju.com/reset-wsl-root-password/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -501,6 +395,122 @@
 <blockquote>
 <p>以上数据部分均取自github，时间为2021年10月21日<br>观点部分，只代表个人观点，有什么建议和意见欢迎指正</p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/BigNumber/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | FrontEnd Club">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/BigNumber/" class="post-title-link" itemprop="url">Javascript 双精度浮点数计算精度问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-11-25 17:50:37" itemprop="dateCreated datePublished" datetime="2020-11-25T17:50:37Z">2020-11-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 09:12:16" itemprop="dateModified" datetime="2022-08-12T09:12:16Z">2022-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们用JS进行浮点数运算时，比如<code>0.1 + 0.2</code>，经常会得到一个意想不到的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0.1</span> + <span class="number">0.2</span>) <span class="comment">// 0.30000000000000004</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>这个结果是不是很匪夷所思，那么是什么造成这个结果的呢？</p>
+<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p>简单来说就是因为：EcmaScrpt规范定义，JavaScript中所有的数字（包括整数和小数）都只有一种类型–Number。而Number的实现遵循IEEE 754标准，使用64位固定长度来表示，也就是标准的double双精度浮点数。它的优点是可以归一化处理整数和小数，节省储存空间。而实际计算的时候会转换成二进制计算再转成十进制。进制转换之后会很长，舍去一部分，计算再转回来，就有了精度误差。</p>
+<p>更深度的解析请参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssaylo/archive/2004/01/13/12915966.html">JavaScript 浮点数陷阱以及解法</a></p>
+<p>事实上，这个问题并不只出现在JS里，其他遵循IEEE 754标准的语言，同样存在此问题。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>这个问题既然已经存在很长时间了，那么解决方案自然也就有很多了。</p>
+<h3 id="官方方案"><a href="#官方方案" class="headerlink" title="官方方案"></a>官方方案</h3><p>TC39 已经有一个 Stage 3 的提案 proposal bigint，大数问题有望彻底解决。在浏览器正式支持前，可以使用 Babel 7.0 来实现，它的内部是自动转换成 big-integer 来计算，这样能保持精度但运算效率会降低。</p>
+<h3 id="主动缩小精度范围"><a href="#主动缩小精度范围" class="headerlink" title="主动缩小精度范围"></a>主动缩小精度范围</h3><p>利用toPrecision或toFixed主动把溢出造成的细微差异过滤掉。这种方案吧，只适合浮点数，对于整数的溢出，是束手无策的。</p>
+<h3 id="转为整数计算"><a href="#转为整数计算" class="headerlink" title="转为整数计算"></a>转为整数计算</h3><p>这种方案跟上面的也差不多，只适合小数。对于包含n位小数的number，先乘10的n次方，再进行计算，最后结果再除10的n次方归位</p>
+<h3 id="转为字符串再进行计算"><a href="#转为字符串再进行计算" class="headerlink" title="转为字符串再进行计算"></a>转为字符串再进行计算</h3><p>这种应该是目前最普遍的解决方案了，大多数成熟计算框架都采用的此方案。优点是完全不受number存储空间的限制，可以胜任更准确更精细的计算，缺点是性能相对较差。</p>
+<h3 id="借助第三方计算框架"><a href="#借助第三方计算框架" class="headerlink" title="借助第三方计算框架"></a>借助第三方计算框架</h3><h4 id="math-js"><a href="#math-js" class="headerlink" title="math.js"></a>math.js</h4><p>Math.js是一个用于JavaScript和Node.js的扩展数学库。它具有支持符号计算的灵活表达式解析器，大量内置函数和常量，并提供了集成的解决方案来处理不同的数据类型，例如数字，大数，复数，分数，单位和矩阵。强大且易于使用。</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mathjs.org/">http://mathjs.org/</a><br>中文官网：<a target="_blank" rel="noopener" href="https://www.mathjs.cn/">https://www.mathjs.cn/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/josdejong/mathjs">https://github.com/josdejong/mathjs</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 函数和常量</span></span><br><span class="line">math.<span class="title function_">round</span>(math.<span class="property">e</span>, <span class="number">3</span>)                <span class="comment">// 2.718</span></span><br><span class="line">math.<span class="title function_">atan2</span>(<span class="number">3</span>, -<span class="number">3</span>) / math.<span class="property">pi</span>          <span class="comment">// 0.75</span></span><br><span class="line">math.<span class="title function_">log</span>(<span class="number">10000</span>, <span class="number">10</span>)                  <span class="comment">// 4</span></span><br><span class="line">math.<span class="title function_">sqrt</span>(-<span class="number">4</span>)                        <span class="comment">// 2i</span></span><br><span class="line">math.<span class="title function_">derivative</span>(<span class="string">&#x27;x^2 + x&#x27;</span>, <span class="string">&#x27;x&#x27;</span>)      <span class="comment">// 2*x+1</span></span><br><span class="line">math.<span class="title function_">pow</span>([[-<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">1</span>]], <span class="number">2</span>)</span><br><span class="line">     <span class="comment">// [[7, 0], [0, 7]]</span></span><br><span class="line"><span class="comment">// 表达式</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;1.2 * (2 + 4.5)&#x27;</span>)     <span class="comment">// 7.8</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;12.7 cm to inch&#x27;</span>)     <span class="comment">// 5 inch</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;sin(45 deg) ^ 2&#x27;</span>)     <span class="comment">// 0.5</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;9 / 3 + 2i&#x27;</span>)          <span class="comment">// 3 + 2i</span></span><br><span class="line">math.evaluate(<span class="string">&#x27;det([-1, 2; 3, 1])&#x27;</span>)  <span class="comment">// -7</span></span><br><span class="line"><span class="comment">// 链接</span></span><br><span class="line">math.<span class="title function_">chain</span>(<span class="number">3</span>)</span><br><span class="line">    .<span class="title function_">add</span>(<span class="number">4</span>)</span><br><span class="line">    .<span class="title function_">multiply</span>(<span class="number">2</span>)</span><br><span class="line">    .<span class="title function_">done</span>() <span class="comment">// 14</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="decimal-js"><a href="#decimal-js" class="headerlink" title="decimal.js"></a>decimal.js</h4><p>此库 与 bignumber.js相似，但是注意此库的精度是以 有效数字 来规定的，而不是小数点的位置. 此库中所有的运算都是四舍五入到 对应的精度(类似于python中的 decimal 模块)，而不是仅仅只是除法运算四舍五入</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/decimal.js/">http://mikemcl.github.io/decimal.js/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/MikeMcl/decimal.js/">https://github.com/MikeMcl/decimal.js/</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">9</span>)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line">y = <span class="keyword">new</span> <span class="title class_">Decimal</span>(x)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;5032485723458348569331745.33434346346912144534543&#x27;</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;4.321e+4&#x27;</span>)                  <span class="comment">// &#x27;43210&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;-735.0918e-430&#x27;</span>)            <span class="comment">// &#x27;-7.350918e-428&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;5.6700000&#x27;</span>)                 <span class="comment">// &#x27;5.67&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="title class_">Infinity</span>)                    <span class="comment">// &#x27;Infinity&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="title class_">NaN</span>)                         <span class="comment">// &#x27;NaN&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;.5&#x27;</span>)                        <span class="comment">// &#x27;0.5&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;-0b10110100.1&#x27;</span>)             <span class="comment">// &#x27;-180.5&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0xff.8&#x27;</span>)                    <span class="comment">// &#x27;255.5&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">0.046875</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0.046875000000&#x27;</span>)            <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="number">4.6875e-2</span>)                   <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;468.75e-4&#x27;</span>)                 <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0b0.000011&#x27;</span>)                <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0o0.03&#x27;</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0x0.0c&#x27;</span>)                    <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0b1.1p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0o1.4p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Decimal</span>(<span class="string">&#x27;0x1.8p-5&#x27;</span>)                  <span class="comment">// &#x27;0.046875&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="bignumber-js"><a href="#bignumber-js" class="headerlink" title="bignumber.js"></a>bignumber.js</h4><p>bignumber.js是一款用于任意精度十进制和非十进制算术的JavaScript库</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://alexbardas.github.io/bignumber.js/">http://alexbardas.github.io/bignumber.js/</a><br>GitHub：<a target="_blank" rel="noopener" href="https://github.com/alexbardas/bignumber.js">https://github.com/alexbardas/bignumber.js</a></p>
+<p>例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="title class_">BigNumber</span> = <span class="built_in">require</span>(<span class="string">&#x27;big-number&#x27;</span>);</span><br><span class="line"><span class="title class_">BigNumber</span>(<span class="number">5</span>)</span><br><span class="line">    .<span class="title function_">plus</span>(<span class="number">97</span>)</span><br><span class="line">    .<span class="title function_">minus</span>(<span class="number">53</span>)</span><br><span class="line">    .<span class="title function_">plus</span>(<span class="number">434</span>)</span><br><span class="line">    .<span class="title function_">multiply</span>(<span class="number">5435423</span>)</span><br><span class="line">    .<span class="title function_">add</span>(<span class="number">321453</span>)</span><br><span class="line">    .<span class="title function_">multiply</span>(<span class="number">21</span>)</span><br><span class="line">    .<span class="title function_">div</span>(<span class="number">2</span>)</span><br><span class="line">    .<span class="title function_">pow</span>(<span class="number">2</span>)</span><br><span class="line"><span class="comment">// 760056543044267246001</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="big-js"><a href="#big-js" class="headerlink" title="big.js"></a>big.js</h4><p>‎Big.js是JavaScript的”bignumber”实现。这意味着您可以使用它以任何精度存储任何量级的数字，并在 JavaScript 中对它们执行数学运算。‎</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/big.js/">http://mikemcl.github.io/big.js/</a><br>Github：<a target="_blank" rel="noopener" href="http://mikemcl.github.io/big.js/">https://github.com/MikeMcl/big.js/</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="keyword">new</span> <span class="title class_">Big</span>(<span class="number">9</span>)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line">y = <span class="keyword">new</span> <span class="title class_">Big</span>(x)                       <span class="comment">// &#x27;9&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Big</span>(<span class="string">&#x27;5032485723458348569331745.33434346346912144534543&#x27;</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Big</span>(<span class="string">&#x27;4.321e+4&#x27;</span>)                  <span class="comment">// &#x27;43210&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Big</span>(<span class="string">&#x27;-735.0918e-430&#x27;</span>)            <span class="comment">// &#x27;-7.350918e-428&#x27;</span></span><br><span class="line"><span class="title class_">Big</span>(<span class="number">435.345</span>)                         <span class="comment">// &#x27;435.345&#x27;</span></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Big</span>()                            <span class="comment">// &#x27;Error: [big.js] Invalid value&#x27;</span></span><br><span class="line"><span class="title class_">Big</span>()                                <span class="comment">// No error, and a new Big constructor is returned</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_34375251/article/details/87972948">深度剖析0.1 +0.2&#x3D;&#x3D;&#x3D;0.30000000000000004的原因</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000011913127?_ea=2804668">如何解决0.1 +0.2&#x3D;&#x3D;&#x3D;0.30000000000000004类问题</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903486664998925">两分钟解惑 JS 小数计算精度问题</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/ssaylo/archive/2004/01/13/12915966.html">JavaScript 浮点数陷阱以及解法</a></p>
 
       
     </div>
