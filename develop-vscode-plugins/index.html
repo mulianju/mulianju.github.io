@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="从零开始开发一个vscode插件，来实现一键替换css色值为对应css变量，支持自定义css变量定义文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vscode扩展插件开发实战记录">
+<meta property="og:url" content="http://mulianju.com/develop-vscode-plugins/index.html">
+<meta property="og:site_name" content="FrontEnd Club">
+<meta property="og:description" content="从零开始开发一个vscode插件，来实现一键替换css色值为对应css变量，支持自定义css变量定义文件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/questions.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/launch.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/run.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/run-hello-world.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/hello-world.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/console.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/debug.png">
+<meta property="article:published_time" content="2022-07-19T17:40:02.000Z">
+<meta property="article:modified_time" content="2022-08-12T09:01:48.529Z">
+<meta property="article:author" content="Mulianju">
+<meta property="article:tag" content="vscode">
+<meta property="article:tag" content="vsce">
+<meta property="article:tag" content="vscode插件">
+<meta property="article:tag" content="plugins">
+<meta property="article:tag" content="vscode plugins">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://mulianju.com/images/articles/develop-vscode-plugins/questions.png">
+
+
+<link rel="canonical" href="http://mulianju.com/develop-vscode-plugins/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://mulianju.com/develop-vscode-plugins/","path":"develop-vscode-plugins/","title":"vscode扩展插件开发实战记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vscode扩展插件开发实战记录 | FrontEnd Club</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">FrontEnd Club</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端俱乐部</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">114</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">初始化项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%B9%E7%9B%AE-1"><span class="nav-number">1.2.</span> <span class="nav-text">初始化项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.3.</span> <span class="nav-text">运行项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95"><span class="nav-number">1.4.</span> <span class="nav-text">调试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">环境介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">项目目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json"><span class="nav-number">2.2.</span> <span class="nav-text">package.json</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#activationEvents"><span class="nav-number">2.2.1.</span> <span class="nav-text">activationEvents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#contributes"><span class="nav-number">2.2.2.</span> <span class="nav-text">contributes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#configuration"><span class="nav-number">2.2.3.</span> <span class="nav-text">configuration</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">功能实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E6%89%93%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">插件打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83"><span class="nav-number">5.</span> <span class="nav-text">插件发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0%E5%BA%94%E7%94%A8%E5%B8%82%E5%9C%BA%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">发布到应用市场的流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mulianju"
+      src="/images/Cloud.jpg">
+  <p class="site-author-name" itemprop="name">Mulianju</p>
+  <div class="site-description" itemprop="description">前端俱乐部</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mulianju" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mulianju" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mulianju@qq.com" title="E-Mail → mailto:mulianju@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/develop-vscode-plugins/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vscode扩展插件开发实战记录 | FrontEnd Club">
+      <meta itemprop="description" content="从零开始开发一个vscode插件，来实现一键替换css色值为对应css变量，支持自定义css变量定义文件">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vscode扩展插件开发实战记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-19 17:40:02" itemprop="dateCreated datePublished" datetime="2022-07-19T17:40:02Z">2022-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">从零开始开发一个vscode插件，来实现一键替换css色值为对应css变量，支持自定义css变量定义文件</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在做一个前端动态主题替换的项目，我们架构侧定义了一批颜色变量(基于Css Variables)，要求所有项目中，不得写死色值，所有颜色设置都要使用css变量来定义。<br>此要求一出，相关项目负责人立刻反馈了开发成本提升的问题，希望架构侧能提供一些工具上的支持。因此就有了此插件的需求。</p>
+<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://nodejs.cn/">nodejs</a> 建议使用 LTS 版本</li>
+<li><a target="_blank" rel="noopener" href="https://yowebapp.github.io/learning/">Yeoman</a> 脚手架工具</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Microsoft/vscode-generator-code">generator-code</a> VSCode代码生成器</li>
+</ul>
+<p>vscode官方推荐使用<a target="_blank" rel="noopener" href="https://yowebapp.github.io/learning/">Yeoman</a>脚手架系统来初始化插件项目，因此，首先第一步要安装yo，我们这里连同VSCode代码生成器一起安装了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g yo generator-code</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化项目-1"><a href="#初始化项目-1" class="headerlink" title="初始化项目"></a>初始化项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yo code</span><br></pre></td></tr></table></figure>
+
+<p>根据提示，自行按步骤选择或输入相关信息，系统会自动生成项目模板。</p>
+<p><img data-src="/../images/articles/develop-vscode-plugins/questions.png" alt="info"></p>
+<p>初始化成功后，vscode会提示是否用vscode单独打开项目独立窗口，我们按照默认打开项目。</p>
+<h3 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h3><p>初始化成功的项目，已经自动生成<code>launch.json</code>文件，我们只需要打开vscode<code>运行和调试</code>面板，点击<code>Run Extension</code>即可启动项目。</p>
+<p><img data-src="/../images/articles/develop-vscode-plugins/launch.png" alt="launch"><br><img data-src="/../images/articles/develop-vscode-plugins/run.png" alt="run"></p>
+<p>项目运行成功后，会自动打开一个vscode测试窗口。</p>
+<p>在新窗口中，打开命令面板(ctrl+shift+p)，输入<code>hello world</code>，选择执行<code>hello world</code>命令：</p>
+<p><img data-src="/../images/articles/develop-vscode-plugins/run-hello-world.png" alt="run-hello-world"></p>
+<p>在窗口右下角弹出<code>Hello world from vscode-css-var-replace</code>的提示框，就表示我们的项目已经运行成功并且生效。</p>
+<p><img data-src="/../images/articles/develop-vscode-plugins/hello-world.png" alt="hello-world"></p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>vscode插件的调试方式一般有两种：</p>
+<ol>
+<li><code>console</code>：vscode中集成了标准的console系统，输出窗口位于编辑器底部<code>调试控制台</code>;</li>
+</ol>
+<p><img data-src="/../images/articles/develop-vscode-plugins/console.png" alt="console"></p>
+<ol start="2">
+<li>直接在编辑器中打断点，然后运行过程中会在指定位置中断程序，把鼠标悬停在相应代码，即可弹出变量的相关信息。</li>
+</ol>
+<p><img data-src="/../images/articles/develop-vscode-plugins/debug.png" alt="debug"></p>
+<p>以上，我们的demo已经成功跑起来了。</p>
+<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>接下来，我们来了解一下开发和配置环境。</p>
+<h3 id="项目目录结构"><a href="#项目目录结构" class="headerlink" title="项目目录结构"></a>项目目录结构</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">├── CHANGELOG.md <span class="comment">## 插件更新日志说明文档，用来后期版本迭代的说明</span></span><br><span class="line">├── README.md <span class="comment">## 插件介绍文档</span></span><br><span class="line">├── dist <span class="comment">## 打包目录</span></span><br><span class="line">├── out <span class="comment">## 输出目录</span></span><br><span class="line">├── package-lock.json <span class="comment">## npm版本锁定文件</span></span><br><span class="line">├── package.json <span class="comment">## 项目配置文件</span></span><br><span class="line">├── src <span class="comment">## 项目源码</span></span><br><span class="line">│   ├── extension.ts <span class="comment">## extension.js是插件工程的入口文件，当插件被激活，即触发package.json中的activationEvents配置项时，extension.js文件开始执行。</span></span><br><span class="line">│   └── process.ts <span class="comment">## 方法</span></span><br><span class="line">├── tsconfig.json <span class="comment">## ts配置文件</span></span><br><span class="line">├── vsc-extension-quickstart.md <span class="comment">## 初始化时自带的开发说明文档</span></span><br><span class="line">└── webpack.config.js <span class="comment">## webpack配置文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p><code>package.json</code>是开发vscode插件的核心配置文件，插件的名称、描述、搜索关键词、激活时机和激活命令等都是在此配置</p>
+<h4 id="activationEvents"><a href="#activationEvents" class="headerlink" title="activationEvents"></a>activationEvents</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;activationEvents&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="string">&quot;onCommand:vscode-css-var-replace.replace&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<p>激活时机，类似于VUE的声明周期的概念。在VS Code中，插件都是懒加载的，所以你得为VS Code提供插件激活的时机。</p>
+<p>vscode中默认提供了以下激活时机：</p>
+<ul>
+<li><code>onLanguage:$&#123;language&#125;</code>: 特定语言文件打开时激活。</li>
+<li><code>onCommand:$&#123;command&#125;</code>: 当调用命令时激活。</li>
+<li><code>onDebug</code>: 调试会话（debug session）启动前激活。</li>
+<li><code>workspaceContains:$&#123;toplevelfilename&#125;</code>: 文件夹打开后，且文件夹中至少包含一个符合glob模式的文件时触发。</li>
+<li><code>onFileSystem:$&#123;scheme&#125;</code>: 从协议（scheme）打开的文件或文件夹打开时触发。通常是file-协议，也可以用自定义的文件供应器函数替换掉，比如<code>ftp</code>、<code>ssh</code>。</li>
+<li><code>onView:$&#123;viewId&#125;</code>: 指定的视图id展开时触发。</li>
+<li><code>onUri</code>: 插件的系统级URI打开时触发。这个URI协议需要带上vscode或者vscode-insiders协议。URI授权必须是插件的唯一标识，剩余的URI是可选的。</li>
+<li><code>*</code>: 当VS Code启动时触发。为了保证良好的用户体验，只在你的插件没有其他任何激活事件的前提下，添加这个激活事件。</li>
+</ul>
+<h4 id="contributes"><a href="#contributes" class="headerlink" title="contributes"></a>contributes</h4><p>我们可以在此注册插件的激活方式，插件的激活方式主要有以下三种：</p>
+<p>首先，参考我们当前项目的配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;contributes&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vscode-css-var-replace.replace&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;replace selected code&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;menus&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;editor/context&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorFocus&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vscode-css-var-replace.replace&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;group&quot;</span><span class="punctuation">:</span> <span class="string">&quot;navigation&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;keybindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;vscode-css-var-replace.replace&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ctrl+f10&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;mac&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cmd+f10&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;when&quot;</span><span class="punctuation">:</span> <span class="string">&quot;editorTextFocus&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>以上配置，分别注册了三种激活方式：</p>
+<ul>
+<li><code>commands</code>: 注册命令，在<code>vscode</code>使用快捷键(<code>ctrl+shift+p</code>)打开命令面板，输入<code>replace selected code</code>来激活插件</li>
+<li><code>menus</code>: 注册右键菜单，在<code>vscode</code>点击右键打开右键菜单，选择<code>replace selected code</code>来激活插件</li>
+<li><code>keybindings</code>: 注册快捷键，在<code>vscode</code>中，使用快捷键(<code>ctrl+f10</code>)来激活插件</li>
+</ul>
+<p><strong>相关关键词</strong></p>
+<ul>
+<li><code>menus</code> 下的 <code>editor/context</code> 是配置场景自定义菜单，定义这个菜单出现在哪里；</li>
+<li><code>when</code> 控制菜单合适出现；</li>
+<li><code>command</code> 定义菜单被点击后要执行什么操作；</li>
+<li><code>alt</code> 定义备用命令，按住alt键打开菜单时将执行对应命令；</li>
+<li><code>group</code> 定义菜单分组；</li>
+</ul>
+<p><strong>目前插件可以给以下场景配置自定义菜单：</strong></p>
+<ul>
+<li>资源管理器上下文菜单 - <code>explorer/context</code></li>
+<li>编辑器上下文菜单 - <code>editor/context</code></li>
+<li>编辑标题菜单栏 - <code>editor/title</code></li>
+<li>编辑器标题上下文菜单 - <code>editor/title/context</code></li>
+<li>调试callstack视图上下文菜单 - <code>debug/callstack/context</code></li>
+<li>SCM标题菜单 - <code>scm/title</code></li>
+<li>SCM资源组菜单 - <code>scm/resourceGroup/context</code></li>
+<li>SCM资源菜单 - <code>scm/resource/context</code></li>
+<li>SCM更改标题菜单 - <code>scm/change/title</code></li>
+<li>左侧视图标题菜单 - <code>view/title</code></li>
+<li>视图项菜单 - <code>view/item/context</code></li>
+<li>控制命令是否显示在命令选项板中 - <code>commandPalette</code></li>
+</ul>
+<p><strong>when语句语法有很多，这里列举几个常用的：</strong></p>
+<ul>
+<li><code>resourceLangId == javascript</code>：当编辑的文件是js文件时；</li>
+<li><code>resourceFilename == test.js</code>：当当前打开文件名是test.js时；</li>
+<li><code>isLinux</code>、<code>isMac</code>、<code>isWindows</code>：判断当前操作系统；</li>
+<li><code>editorFocus</code>：编辑器具有焦点时；</li>
+<li><code>editorHasSelection</code>：编辑器中有文本被选中时；</li>
+<li><code>view == someViewId</code>：当当前视图ID等于someViewId时；</li>
+</ul>
+<h4 id="configuration"><a href="#configuration" class="headerlink" title="configuration"></a>configuration</h4><p>通过<code>configuration</code>我们可以设置一个属性，这个属性可以在vscode的settings.json中设置，然后在插件工程中可以读取用户设置的这个值，进行相应的逻辑。</p>
+<p>参考我们当前项目的配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;configuration&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;css变量替换工具配置&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Object&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;vscode-css-var-replace.files&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;array&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;css变量文件&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+
+<p>此配置声明了<code>vscode-css-var-replace.files</code>属性，我们可以在<code>vscode</code>设置文件<code>settings.json</code>中配置此<code>CSS</code>变量替换插件的<code>CSS</code>变量声明文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;vscode-css-var-replace.files&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">  <span class="string">&quot;D://work//work//git//fx//src//assets//newstyle//vars.css&quot;</span> <span class="comment">// css变量文件的绝对路径</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="功能实现"><a href="#功能实现" class="headerlink" title="功能实现"></a>功能实现</h2><p>实现替换的核心类</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// process.ts</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> tinycolor <span class="keyword">from</span> <span class="string">&#x27;tinycolor2&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">CssVarProcess</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">config: &#123; [key: <span class="built_in">string</span>]: <span class="built_in">any</span> &#125; = &#123;&#125;</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; cssVarMap &#125; = config;</span><br><span class="line">    <span class="keyword">if</span> (cssVarMap) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">colorMap</span> = cssVarMap;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="attr">regs</span>: &#123; [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125; = &#123;</span><br><span class="line">    <span class="attr">hex</span>: <span class="string">&#x27;#([0-9a-fA-F]&#123;6&#125;|[0-9a-fA-F]&#123;3&#125;)&#x27;</span>,</span><br><span class="line">    <span class="attr">rgb</span>: <span class="string">&#x27;[rR][gG][Bb][\(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,)&#123;2&#125;[\\s]*(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)[\\s]*[\)]&#123;1&#125;&#x27;</span>,</span><br><span class="line">    <span class="attr">rgba</span>: <span class="string">&#x27;[rR][gG][Bb][Aa][\(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,)&#123;3&#125;[\\s]*(1|1.0|0|0.[0-9])[\\s]*[\)]&#123;1&#125;&#x27;</span>,</span><br><span class="line">    <span class="attr">hsl</span>: <span class="string">&#x27;[hH][Ss][Ll][\(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*)[\)]&#x27;</span>,</span><br><span class="line">    <span class="attr">hsla</span>: <span class="string">&#x27;[hH][Ss][Ll][Aa][\(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,)&#123;2&#125;([\\s]*(1|1.0|0|0.[0-9])[\\s]*)[\)]&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="attr">colorMap</span>: &#123; [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125; = &#123;&#125;;</span><br><span class="line">  <span class="title function_">replaceColor</span>(<span class="params">str: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>.<span class="property">regs</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">pre, cur</span>) =&gt;</span> pre.<span class="title function_">replace</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="variable language_">this</span>.<span class="property">regs</span>[cur], <span class="string">&#x27;ig&#x27;</span>), <span class="function">(<span class="params">match</span>) =&gt;</span> <span class="string">`<span class="subst">$&#123;<span class="variable language_">this</span>.getColorMapItem(match) || match&#125;</span>`</span>), str);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 基于tinycolor，来实现不同颜色空间的相同颜色的变量替换</span></span><br><span class="line">  <span class="title function_">getColorMapItem</span>(<span class="params">key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> targetKey = <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>.<span class="property">colorMap</span>).<span class="title function_">find</span>(<span class="function"><span class="params">colorKey</span> =&gt;</span> tinycolor.<span class="title function_">equals</span>(colorKey, key));</span><br><span class="line">    <span class="keyword">return</span> targetKey ? <span class="string">`var(<span class="subst">$&#123;<span class="variable language_">this</span>.colorMap[targetKey]&#125;</span>)`</span> : <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在<code>extension.ts</code>中对需要的功能进行注册，主要使用<code>vscode.commands.registerTextEditorCommand</code>相关的<code>api</code>，来为<code>package.json</code>中的<code>contributes</code>配置项中的事件绑定方法或者监听器。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// extension.ts</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> vscode <span class="keyword">from</span> <span class="string">&#x27;vscode&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">CssVarProcess</span> <span class="keyword">from</span> <span class="string">&#x27;./process&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> fs <span class="keyword">from</span> <span class="string">&#x27;fs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">activate</span>(<span class="params">context: vscode.ExtensionContext</span>) &#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">const</span> config = vscode.<span class="property">workspace</span>.<span class="title function_">getConfiguration</span>().<span class="title function_">get</span>(<span class="string">&#x27;vscode-css-var-replace&#x27;</span>);</span><br><span class="line"> <span class="keyword">const</span> <span class="attr">cssVarMap</span>: &#123; [<span class="attr">key</span>: <span class="built_in">string</span>]: <span class="built_in">string</span> &#125; = &#123;&#125;;</span><br><span class="line"> fs.<span class="title function_">readFile</span>(config.<span class="property">files</span>[<span class="number">0</span>], <span class="function">(<span class="params">err, buffer</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">   <span class="keyword">const</span> cssText = buffer.<span class="title function_">toString</span>();</span><br><span class="line">   cssText.<span class="title function_">match</span>(<span class="regexp">/(--[a-zA-Z0-9-]+):[\s]*([#\(\)0-9a-zA-Z\s]+)[;\n]/ig</span>)?.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> [cssvar, cssvalue] = item.<span class="title function_">split</span>(<span class="string">&#x27;:&#x27;</span>);</span><br><span class="line">    cssVarMap[cssvalue.<span class="title function_">trim</span>().<span class="title function_">replace</span>(<span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;&#x27;</span>)] = cssvar;</span><br><span class="line">   &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;);</span><br><span class="line"> <span class="keyword">const</span> cssVarProcess = <span class="keyword">new</span> <span class="title class_">CssVarProcess</span>(&#123; cssVarMap &#125;);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> disposable = vscode.<span class="property">commands</span>.<span class="title function_">registerTextEditorCommand</span>(<span class="string">&#x27;vscode-css-var-replace.replace&#x27;</span>, <span class="function">(<span class="params">textEditor</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> doc = textEditor.<span class="property">document</span>;</span><br><span class="line">  <span class="keyword">const</span> <span class="attr">selections</span>: vscode.<span class="property">Range</span>[] = <span class="title class_">Array</span>.<span class="title function_">from</span>(textEditor.<span class="property">selections</span>);</span><br><span class="line">  <span class="keyword">if</span> (textEditor.<span class="property">selection</span>.<span class="property">isEmpty</span>) &#123;</span><br><span class="line">   <span class="keyword">const</span> start = <span class="keyword">new</span> vscode.<span class="title class_">Position</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">   <span class="keyword">const</span> end = <span class="keyword">new</span> vscode.<span class="title class_">Position</span>(doc.<span class="property">lineCount</span> - <span class="number">1</span>, doc.<span class="title function_">lineAt</span>(doc.<span class="property">lineCount</span> - <span class="number">1</span>).<span class="property">text</span>.<span class="property">length</span>);</span><br><span class="line">   selections.<span class="title function_">push</span>(<span class="keyword">new</span> vscode.<span class="title class_">Range</span>(start, end));</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="comment">// builder.replace为异步函数，此处用Array.reduce做了一个串联</span></span><br><span class="line">  selections.<span class="title function_">reduce</span>(<span class="function">(<span class="params">promise, selection</span>) =&gt;</span> promise.<span class="title function_">then</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">let</span> text = doc.<span class="title function_">getText</span>(selection);</span><br><span class="line">   <span class="keyword">return</span> textEditor.<span class="title function_">edit</span>(<span class="function"><span class="params">builder</span> =&gt;</span> &#123;</span><br><span class="line">    builder.<span class="title function_">replace</span>(selection, cssVarProcess.<span class="title function_">replaceColor</span>(text));</span><br><span class="line">   &#125;);</span><br><span class="line">  &#125;), <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="title function_">resolve</span>(&#123;&#125;)));</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> context.<span class="property">subscriptions</span>.<span class="title function_">push</span>(disposable);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">deactivate</span>(<span class="params"></span>) &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>核心功能相对较简单，只针对当前的需求，没考虑过多的优化。如果有啥意见或建议，欢迎指出。</p>
+</blockquote>
+<h2 id="插件打包"><a href="#插件打包" class="headerlink" title="插件打包"></a>插件打包</h2><p><code>vscode</code>插件支持打包成单独的<code>vsix</code>文件，并通过手动安装到<code>vscode</code>中使用。插件打包功能依赖<code>vsce</code>(<code>Visual Studio Code Extensions</code>)。</p>
+<p><strong>安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g vsce</span><br></pre></td></tr></table></figure>
+
+<p><strong>用法</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vsce package</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我在开发这个插件时，打包过程出了点问题，插件默认配置有一些干扰，需要手动配置<code>package.json</code>的<code>scripts</code>，添加<code>package: vsce package</code>，并且清理掉<code>README.md</code>内容，才能正常打包，这些都是多次尝试得出的结果，并没有查到相关资料。</p>
+</blockquote>
+<h2 id="插件发布"><a href="#插件发布" class="headerlink" title="插件发布"></a>插件发布</h2><p>插件开发完了，我们分享给他人使用呢？通常有三种方式</p>
+<ul>
+<li>直接把源码发给别人，用调试的方式使用，一般不推荐；</li>
+<li>把我们打包好的<code>vsix</code>文件发给别人，然后手动安装，如果你的插件没什么通用性，或者涉及机密不方便发布到应用市场，可以尝试采用这种方式；</li>
+<li>注册开发者账号，发布到官网应用市场，这个发布和<code>npm</code>一样是不需要审核的。</li>
+</ul>
+<h3 id="发布到应用市场的流程"><a href="#发布到应用市场的流程" class="headerlink" title="发布到应用市场的流程"></a>发布到应用市场的流程</h3><ol>
+<li><p>在网站<a target="_blank" rel="noopener" href="https://dev.azure.com/vscode">https://dev.azure.com/vscode</a>获取一个<code>access token</code>，这个<code>token</code>用来创建一个<code>publisher</code></p>
+</li>
+<li><p>创建<code>publisher</code></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vscr create-publisher (publisher name)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>登入一个<code>publisher</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vscde login (publisher name)</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>打包</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vsce package</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>发布</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vsce publish</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/api/extension-guides/overview">Vscode Extension Guides</a></li>
+<li><a target="_blank" rel="noopener" href="https://liiked.github.io/VS-Code-Extension-Doc-ZH/#/">vscode 中文文档</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vscode/" rel="tag"># vscode</a>
+              <a href="/tags/vsce/" rel="tag"># vsce</a>
+              <a href="/tags/vscode%E6%8F%92%E4%BB%B6/" rel="tag"># vscode插件</a>
+              <a href="/tags/plugins/" rel="tag"># plugins</a>
+              <a href="/tags/vscode-plugins/" rel="tag"># vscode plugins</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/clear-network-cache/" rel="prev" title="打不开网页怎么办">
+                  <i class="fa fa-chevron-left"></i> 打不开网页怎么办
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/already-included-file-name./" rel="next" title="VUE报错：Already included file name">
+                  VUE报错：Already included file name <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mulianju</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

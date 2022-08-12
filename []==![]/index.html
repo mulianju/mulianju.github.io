@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="相信很多面试题里都会出现“[]&#x3D;&#x3D;![]的输出结果”这么一个题目，以前我也被问过，这个题目的结果很出乎意料居然是true，困惑了很久，一直懒得查相关资料，也就当做一个特例记下来了；最近又有一次机会碰到了这个题目，所以，这次决定要好好查查，一定要整明白，于是就有了这篇文章  怎么理解 [] &#x3D;&#x3D; [] 为 false这个问题很好理解，两个对象的实例化，并不相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么 &#96;[] &#x3D;&#x3D; []&#96; 为 &#96;false,[] &#x3D;&#x3D; ![]&#96; 为 true">
+<meta property="og:url" content="http://mulianju.com/[]==![]/index.html">
+<meta property="og:site_name" content="FrontEnd Club">
+<meta property="og:description" content="相信很多面试题里都会出现“[]&#x3D;&#x3D;![]的输出结果”这么一个题目，以前我也被问过，这个题目的结果很出乎意料居然是true，困惑了很久，一直懒得查相关资料，也就当做一个特例记下来了；最近又有一次机会碰到了这个题目，所以，这次决定要好好查查，一定要整明白，于是就有了这篇文章  怎么理解 [] &#x3D;&#x3D; [] 为 false这个问题很好理解，两个对象的实例化，并不相">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-05-07T14:30:25.000Z">
+<meta property="article:modified_time" content="2022-08-12T09:01:48.526Z">
+<meta property="article:author" content="Mulianju">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="ToPrimitive">
+<meta property="article:tag" content="ToNumber">
+<meta property="article:tag" content="堆和栈">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://mulianju.com/[]==![]/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://mulianju.com/[]==![]/","path":"[]==![]/","title":"为什么 `[] == []` 为 `false,[] == ![]` 为 true"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>为什么 `[] == []` 为 `false,[] == ![]` 为 true | FrontEnd Club</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">FrontEnd Club</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端俱乐部</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">114</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">34</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3-x3D-x3D-%E4%B8%BA-false"><span class="nav-number">1.</span> <span class="nav-text">怎么理解 [] &#x3D;&#x3D; [] 为 false</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3-x3D-x3D-%E4%B8%BA-true"><span class="nav-number">2.</span> <span class="nav-text">怎么理解 [] &#x3D;&#x3D; ![] 为 true</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mulianju"
+      src="/images/Cloud.jpg">
+  <p class="site-author-name" itemprop="name">Mulianju</p>
+  <div class="site-description" itemprop="description">前端俱乐部</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">114</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mulianju" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mulianju" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mulianju@qq.com" title="E-Mail → mailto:mulianju@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/[]==![]/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="为什么 `[] == []` 为 `false,[] == ![]` 为 true | FrontEnd Club">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么 `[] == []` 为 `false,[] == ![]` 为 true
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-05-07 14:30:25" itemprop="dateCreated datePublished" datetime="2018-05-07T14:30:25Z">2018-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>相信很多面试题里都会出现“[]&#x3D;&#x3D;![]的输出结果”这么一个题目，以前我也被问过，这个题目的结果很出乎意料居然是true，困惑了很久，一直懒得查相关资料，也就当做一个特例记下来了；最近又有一次机会碰到了这个题目，所以，这次决定要好好查查，一定要整明白，于是就有了这篇文章</p>
+</blockquote>
+<h2 id="怎么理解-x3D-x3D-为-false"><a href="#怎么理解-x3D-x3D-为-false" class="headerlink" title="怎么理解 [] &#x3D;&#x3D; [] 为 false"></a>怎么理解 [] &#x3D;&#x3D; [] 为 false</h2><p>这个问题很好理解，两个对象的实例化，并不相等，就像</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a == b) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>更深一层次的理解，可以把堆和栈两个东西搬出来。<br>js里面，有一个特殊的数据类型分类：基本类型、引用类型。<br>    基本类型值包括：String，Number，Boolean，undefined，null；<br>    引用类型值包括：Object，Array，Function，基本类型的原始类型的引用类型，以及es6新出的一些复杂数据类型；</p>
+<p>基本类型的数值是存在栈的简单数值，而引用类型则是将实际数值存放在堆里，并同时在栈中保存一下这个实际数值的指针，这就是如何理解以下例子的原理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">a.<span class="property">a</span> = <span class="number">3</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b.<span class="property">a</span>) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当堆里的值发生变化的时候，所有指向这个值的指针，都会拿到变化后的值</p>
+</blockquote>
+<p>声明引用类型的时候，程序每次都会创建出一个新的实例，存放在堆里不同的地址，引用类型数据保存的只是指向这个地址的指针，而引用类型在进行比较的时候，也就是比较两个对象的堆内存中的地址是否相同，我们上面提到的[] &#x3D;&#x3D; []这个命题中，等式前后，都是新声明的一个空数组的实例化对象，分别会存放在两个不同的地址，因为地址不同，所以结果为false。</p>
+<h2 id="怎么理解-x3D-x3D-为-true"><a href="#怎么理解-x3D-x3D-为-true" class="headerlink" title="怎么理解 [] &#x3D;&#x3D; ![] 为 true"></a>怎么理解 [] &#x3D;&#x3D; ![] 为 true</h2><p>首先，&#x3D;&#x3D; 的比较规则，最后都是转换成 Number 来比较的。</p>
+<!--
+    这个就要说到 
+    左侧[]:
+    1.数组不是基本类型，需要先 ToPrimitive([])转换成原始类型， 即 ""。
+    2.接下来 ToNumber("")， 即 0。
+    右侧![]:
+    1.![]， 即 false。
+    2.接下来 ToNumber(false)， 即 0。
+    所以 0 == 0，[] == ![] 为 true。
+-->
+
+<p><a target="_blank" rel="noopener" href="http://www.ecma-international.org/ecma-262/5.1/#sec-11.9.1" title="== 的定义">&#x3D;&#x3D; 的定义</a>是：<br>The production EqualityExpression : EqualityExpression &#x3D;&#x3D; RelationalExpression is evaluated as follows:</p>
+<ul>
+<li>Let lref be the result of evaluating EqualityExpression.</li>
+<li>Let lval be GetValue(lref).</li>
+<li>Let rref be the result of evaluating RelationalExpression.</li>
+<li>Let rval be GetValue(rref).</li>
+<li>Return the result of performing abstract equality comparison rval &#x3D;&#x3D; lval. (see 11.9.3).</li>
+</ul>
+<p>上面提到比较的行为在 11.9.3 节里，所以翻到 11.9.3：</p>
+<p>The comparison x &#x3D;&#x3D; y, where x and y are values, produces true or false. Such a comparison is performed as follows:</p>
+<ul>
+<li>If Type(x) is the same as Type(y), then<br>- If Type(x) is Undefined, return true.<br>- If Type(x) is Null, return true.<br>- If Type(x) is Number, then<br>    - If x is NaN, return false.<br>    - If y is NaN, return false.<br>    - If x is the same Number value as y, return true.<br>    - If x is +0 and y is −0, return true.<br>    - If x is −0 and y is +0, return true.<br>    - Return false.<br>- If Type(x) is String, then return true if x and y are exactly the same sequence of characters (same length and same characters in corresponding positions). Otherwise, return false.<br>- If Type(x) is Boolean, return true if x and y are both true or both false. Otherwise, return false.<br>- Return true if x and y refer to the same object. Otherwise, return false.</li>
+<li>If x is null and y is undefined, return true.</li>
+<li>If x is undefined and y is null, return true.</li>
+<li>If Type(x) is Number and Type(y) is String,return the result of the comparison x &#x3D;&#x3D; ToNumber(y).</li>
+<li>If Type(x) is String and Type(y) is Number,return the result of the comparison ToNumber(x) &#x3D;&#x3D; y.</li>
+<li>If Type(x) is Boolean, return the result of the comparison ToNumber(x) &#x3D;&#x3D; y.</li>
+<li>If Type(y) is Boolean, return the result of the comparison x &#x3D;&#x3D; ToNumber(y).</li>
+<li>If Type(x) is either String or Number and Type(y) is Object,return the result of the comparison x &#x3D;&#x3D; ToPrimitive(y).</li>
+<li>If Type(x) is Object and Type(y) is either String or Number,return the result of the comparison ToPrimitive(x) &#x3D;&#x3D; y.</li>
+<li>Return false.</li>
+</ul>
+<ol>
+<li>在这段算法里，我们看到由于数组不是基本类型，需要先 ToPrimitive([])转换成原始类型， 即 “”。<br> 接下来 ToNumber(“”)， 即 0。</li>
+<li>![]， 即 false。</li>
+</ol>
+<p>结果，[] &#x3D;&#x3D; ![] 的比较最后落到了 0 &#x3D;&#x3D; 0 上，所以结果为 true。</p>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/29615998/answer/45667956">https://www.zhihu.com/question/29615998/answer/45667956</a><br><a target="_blank" rel="noopener" href="http://www.uw3c.com/jsviews/js102.html">http://www.uw3c.com/jsviews/js102.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/ToPrimitive/" rel="tag"># ToPrimitive</a>
+              <a href="/tags/ToNumber/" rel="tag"># ToNumber</a>
+              <a href="/tags/%E5%A0%86%E5%92%8C%E6%A0%88/" rel="tag"># 堆和栈</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/markdown-syntax/" rel="prev" title="Markdown 语法说明 (简体中文版)（转）">
+                  <i class="fa fa-chevron-left"></i> Markdown 语法说明 (简体中文版)（转）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/centos-iptables/" rel="next" title="玩转Linux之- CentOS 7.0，启用iptables防火墙（转）">
+                  玩转Linux之- CentOS 7.0，启用iptables防火墙（转） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mulianju</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
