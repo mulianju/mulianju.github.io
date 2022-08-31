@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/config.min.js"></script>
+
+    <meta name="description" content="当用户点开一个链接或者是直接在浏览器中输入&#96;url&#96;开始进行访问时，就开始等待页面的展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化-白屏时间(转)">
+<meta property="og:url" content="http://mulianju.com/performance-blank-screen/index.html">
+<meta property="og:site_name" content="FrontEnd Club">
+<meta property="og:description" content="当用户点开一个链接或者是直接在浏览器中输入&#96;url&#96;开始进行访问时，就开始等待页面的展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-31T17:24:23.000Z">
+<meta property="article:modified_time" content="2022-08-31T10:18:18.584Z">
+<meta property="article:author" content="Mulianju">
+<meta property="article:tag" content="前端性能优化">
+<meta property="article:tag" content="首屏加载速度">
+<meta property="article:tag" content="白屏">
+<meta property="article:tag" content="白屏时间">
+<meta property="article:tag" content="白屏优化">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://mulianju.com/performance-blank-screen/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://mulianju.com/performance-blank-screen/","path":"performance-blank-screen/","title":"前端性能优化-白屏时间(转)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端性能优化-白屏时间(转) | FrontEnd Club</title>
+  
+
+
+
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "d6hqjne2nd");
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">FrontEnd Club</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端俱乐部</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">122</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">36</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">一、白屏时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">二、白屏时间的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%99%BD%E5%B1%8F%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">三、白屏的过程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mulianju"
+      src="/images/Cloud.jpg">
+  <p class="site-author-name" itemprop="name">Mulianju</p>
+  <div class="site-description" itemprop="description">前端俱乐部</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mulianju" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mulianju" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mulianju@qq.com" title="E-Mail → mailto:mulianju@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/performance-blank-screen/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端性能优化-白屏时间(转) | FrontEnd Club">
+      <meta itemprop="description" content="当用户点开一个链接或者是直接在浏览器中输入`url`开始进行访问时，就开始等待页面的展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端性能优化-白屏时间(转)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-31 17:24:23 / 修改时间：10:18:18" itemprop="dateCreated datePublished" datetime="2022-08-31T17:24:23Z">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/performance-blank-screen/" class="post-meta-item leancloud_visitors" data-flag-title="前端性能优化-白屏时间(转)" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+            <div class="post-description">当用户点开一个链接或者是直接在浏览器中输入`url`开始进行访问时，就开始等待页面的展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="一、白屏时间"><a href="#一、白屏时间" class="headerlink" title="一、白屏时间"></a>一、白屏时间</h2><p><strong>白屏时间</strong>：即用户点击一个链接或打开浏览器输入<code>url</code>地址后，从屏幕空白到显示第一个画面的时间。</p>
+<h2 id="二、白屏时间的重要性"><a href="#二、白屏时间的重要性" class="headerlink" title="二、白屏时间的重要性"></a>二、白屏时间的重要性</h2><p>当用户点开一个链接或者是直接在浏览器中输入<code>url</code>开始进行访问时，就开始等待页面的展示。页面渲染的时间越短，用户等待的时间就越短，用户感知到页面的速度就越快。这样可以极大的提升用户的体验，减少用户的跳出，提升页面的留存率。</p>
+<h2 id="三、白屏的过程"><a href="#三、白屏的过程" class="headerlink" title="三、白屏的过程"></a>三、白屏的过程</h2><p>从输入<code>url</code>，到页面的画面展示的过程</p>
+<ol>
+<li><p>首先，在浏览器地址栏中输入<code>url</code></p>
+</li>
+<li><p>浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作。</p>
+</li>
+<li><p>在发送<code>HTML</code>请求前，需要域名解析(<code>DNS</code>解析)，解析获取相应的IP地址。</p>
+</li>
+<li><p>浏览器向服务器发起<code>TCP</code>连接，与浏览器建立<code>TCP</code>三次握手。</p>
+</li>
+<li><p>握手成功后，浏览器向服务器发送<code>HTML</code>请求，请求数据包。</p>
+</li>
+<li><p>服务器处理收到的请求，将数据返回至浏览器</p>
+</li>
+<li><p>浏览器收到<code>HTML</code>响应</p>
+</li>
+<li><p>读取页面内容，浏览器渲染，解析<code>HTML</code>源码</p>
+</li>
+<li><p>生成<code>DOM</code>树、解析<code>CSS</code>样式、<code>JS</code>交互,渲染显示页面</p>
+</li>
+</ol>
+<p>浏览器下载<code>HTML</code>后，首先解析头部代码，进行样式表下载，然后继续向下解析<code>HTML</code>代码，构建<code>DOM</code>树，同时进行样式下载。当<code>DOM</code>树构建完成后，立即开始构造<code>CSSOM</code>树。理想情况下，样式表下载速度够快，<code>DOM</code>树和<code>CSSOM</code>树进入一个并行的过程，当两棵树构建完毕，构建渲染树，然后进行绘制。</p>
+<blockquote>
+<p>Tips:浏览器安全解析策略对解析<code>HTML</code>造成的影响：<br>当解析<code>HTML</code>时遇到内联<code>JS</code>代码，会阻塞<code>DOM</code>树的构建，会先执行完<code>JS</code>代码;当<code>CSS</code>样式文件没有下载完成时，浏览器解析<code>HTML</code>遇到了内联<code>JS</code>代码，此时，浏览器暂停<code>JS</code>脚本执行，暂停<code>HTML</code>解析。直到<code>CSS</code>文件下载完成，完成<code>CSSOM</code>树构建，重新恢复原来的解析。</p>
+</blockquote>
+<p><code>JavaScript</code> 会阻塞 <code>DOM</code> 生成，而样式文件又会阻塞 <code>JavaScript</code> 的执行，所以在实际的工程中需要重点关注 <code>JavaScript</code> 文件和样式表文件，使用不当会影响到页面性能的。</p>
+<p>参考:输入<code>url</code>后全过程&amp;&amp;页面渲染机制&amp;&amp;<code>DOM</code>生成过程</p>
+<p>四、白屏-性能优化</p>
+<ol>
+<li><p><code>DNS</code>解析优化<br>针对<code>DNS</code> Lookup环节，我们可以针对性的进行<code>DNS</code>解析优化。<br><code>DNS</code>缓存优化<br><code>DNS</code>预加载策略<br>稳定可靠的<code>DNS</code>服务器</p>
+</li>
+<li><p><code>TCP</code>网络链路优化<br>多花点钱吧</p>
+</li>
+<li><p>服务端处理优化<br>服务端的处理优化，是一个非常庞大的话题，会涉及到如<code>Redis</code>缓存、数据库存储优化或是系统内的各种中间件以及<code>Gzip</code>压缩等…</p>
+</li>
+<li><p>浏览器下载、解析、渲染页面优化<br>根据浏览器对页面的下载、解析、渲染过程，可以考虑一下的优化处理：</p>
+<ul>
+<li>尽可能的精简<code>HTML</code>的代码和结构</li>
+<li>尽可能的优化<code>CSS</code>文件和结构</li>
+<li>一定要合理的放置<code>JS</code>代码，尽量不要使用内联的<code>JS</code>代码</li>
+<li>将渲染首屏内容所需的关键<code>CSS</code>内联到<code>HTML</code>中，能使<code>CSS</code>更快速地下载。在<code>HTML</code>下载完成之后就能渲染了，页面渲染的时间提前，从而缩短首屏渲染时间；</li>
+<li>延迟首屏不需要的图片加载，而优先加载首屏所需图片（<code>offsetTop&lt;clientHeight&gt;</code>）</li>
+<li><code>document.documentElement.clientHeight</code> &#x2F;&#x2F; 获取屏幕可视区域的高度</li>
+<li><code>element.offsetTop</code> &#x2F;&#x2F; 获取元素相对于文档顶部的高度</li>
+</ul>
+</li>
+</ol>
+<p>因为<code>JavaScript</code> 会阻塞 <code>DOM</code> 生成，而样式文件又会阻塞 <code>JavaScript</code> 的执行，所以在实际的工程中需要重点关注 <code>JavaScript</code> 文件和样式表文件，使用不当会影响到页面性能的。</p>
+<p>参考: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39903567/article/details/115265394">输入URL后全过程&amp;&amp;页面渲染机制&amp;&amp;DOM生成过程</a><br>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39903567/article/details/115262201">前端性能优化-CSS性能优化</a><br>参考: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1508941">https://cloud.tencent.com/developer/article/1508941</a></p>
+<p>本文链接: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39903567/article/details/115290350">https://blog.csdn.net/qq_39903567&#x2F;article&#x2F;details&#x2F;115290350</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 前端性能优化</a>
+              <a href="/tags/%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/" rel="tag"># 首屏加载速度</a>
+              <a href="/tags/%E7%99%BD%E5%B1%8F/" rel="tag"># 白屏</a>
+              <a href="/tags/%E7%99%BD%E5%B1%8F%E6%97%B6%E9%97%B4/" rel="tag"># 白屏时间</a>
+              <a href="/tags/%E7%99%BD%E5%B1%8F%E4%BC%98%E5%8C%96/" rel="tag"># 白屏优化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/front-end-performance/" rel="prev" title="前端性能优化--转载">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化--转载
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mulianju</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/motion.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/next-boot.min.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PhM46x479VdghmjQ6E23klrX-gzGzoHsz","app_key":"BrjdffHkXwYjylSyAVkPKYue","server_url":"https://phm46x47.lc-cn-n1-shared.com","security":false}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/third-party/statistics/lean-analytics.min.js"></script>
+
+
+
+</body>
+</html>

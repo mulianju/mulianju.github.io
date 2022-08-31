@@ -91,7 +91,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">119</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">35</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">122</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">36</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
   </ul>
 </nav>
 
@@ -136,7 +136,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -147,7 +147,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">119</span>
+        <span class="site-state-item-count">122</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -187,6 +187,112 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/ts-loader-unicode/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | FrontEnd Club">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/ts-loader-unicode/" class="post-title-link" itemprop="url">使用ts-loader加载ts文件时，导致文件内unicode编码的汉字转成中文</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-08-23 14:40:24" itemprop="dateCreated datePublished" datetime="2018-08-23T14:40:24Z">2018-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/ts-loader-unicode/" class="post-meta-item leancloud_visitors" data-flag-title="使用ts-loader加载ts文件时，导致文件内unicode编码的汉字转成中文" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>这个问题其实是个比较难遇到的问题，主要是因为我们特殊的的环境背景：我们的前端静态资源服务器的默认文件编码为GBK，我们的页面和开发环境下默认编码是utf-8，这就导致了，我们开发好的前端资源打包到服务器的时候，文件编码会自动转为GBK，因此，文件内的中文都会变成乱码。</p>
+</blockquote>
+<p>在之前的webpack环境中，我有配置过uglifyjs进行自动转换unicode的操作，配置如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">UglifyJsPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;uglifyjs-webpack-plugin&#x27;</span>)</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="attr">plugins</span>: [</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">UglifyJsPlugin</span>(&#123;</span><br><span class="line">            <span class="attr">uglifyOptions</span>: &#123;</span><br><span class="line">                <span class="attr">output</span>: &#123;</span><br><span class="line">                    <span class="attr">ascii_only</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>配置中，uglifyjs是作为webpack的一个plugins来使用的。<br>这样配置，在之前的bebal以及es3环境下均没有什么问题，但近几天我在webpack中集成ts编译环境的时候，这么写却完全没有作用，为了解决这个问题，真真的查了很多很多资料啊（话说这部分的文档还真是粗糙，查资料都完全没有头绪）。</p>
+<p>不过还好，最终还是有解决方案的：我仔仔细细的看了几遍uglifyjs官方文档，发现官方推荐的写法是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title class_">UglifyJsPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;uglifyjs-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="attr">optimization</span>: &#123;</span><br><span class="line">    <span class="attr">minimizer</span>: [</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">UglifyJsPlugin</span>()</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把环境中uglifyjs的使用方式修改之后，build一下，完美生效啦~</p>
+<blockquote>
+<p>2018-08-27 15:39:38补充：<br>此问题是因为webpack版本升级成4.x.x造成的问题，怪自己疏漏寡闻吧。</p>
+</blockquote>
+<p>最后感叹一下，前端发展的实在是太快了，我们这些老程序员写着写着代码，最后都快变新人了，很是杯具。。。<br>webpack这一整套的生态，真的内容太多了，前路漫漫，信心难立呀~~~</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -492,152 +598,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart iptables.service <span class="comment">#最后重启防火墙使配置生效</span></span><br><span class="line">systemctl <span class="built_in">enable</span> iptables.service <span class="comment">#设置防火墙开机启动</span></span><br></pre></td></tr></table></figure>
 
 <p>转载自：<a target="_blank" rel="noopener" href="http://www.jb51.net/os/188488.html">http://www.jb51.net/os/188488.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://mulianju.com/[]==![]/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/Cloud.jpg">
-      <meta itemprop="name" content="Mulianju">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FrontEnd Club">
-      <meta itemprop="description" content="前端俱乐部">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | FrontEnd Club">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/%5B%5D==!%5B%5D/" class="post-title-link" itemprop="url">为什么 `[] == []` 为 `false,[] == ![]` 为 true</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-05-07 14:30:25" itemprop="dateCreated datePublished" datetime="2018-05-07T14:30:25Z">2018-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/%5B%5D==!%5B%5D/" class="post-meta-item leancloud_visitors" data-flag-title="为什么 `[] == []` 为 `false,[] == ![]` 为 true" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>相信很多面试题里都会出现“[]&#x3D;&#x3D;![]的输出结果”这么一个题目，以前我也被问过，这个题目的结果很出乎意料居然是true，困惑了很久，一直懒得查相关资料，也就当做一个特例记下来了；最近又有一次机会碰到了这个题目，所以，这次决定要好好查查，一定要整明白，于是就有了这篇文章</p>
-</blockquote>
-<h2 id="怎么理解-x3D-x3D-为-false"><a href="#怎么理解-x3D-x3D-为-false" class="headerlink" title="怎么理解 [] &#x3D;&#x3D; [] 为 false"></a>怎么理解 [] &#x3D;&#x3D; [] 为 false</h2><p>这个问题很好理解，两个对象的实例化，并不相等，就像</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a == b) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<p>更深一层次的理解，可以把堆和栈两个东西搬出来。<br>js里面，有一个特殊的数据类型分类：基本类型、引用类型。<br>    基本类型值包括：String，Number，Boolean，undefined，null；<br>    引用类型值包括：Object，Array，Function，基本类型的原始类型的引用类型，以及es6新出的一些复杂数据类型；</p>
-<p>基本类型的数值是存在栈的简单数值，而引用类型则是将实际数值存放在堆里，并同时在栈中保存一下这个实际数值的指针，这就是如何理解以下例子的原理</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">a.<span class="property">a</span> = <span class="number">3</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b.<span class="property">a</span>) <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>当堆里的值发生变化的时候，所有指向这个值的指针，都会拿到变化后的值</p>
-</blockquote>
-<p>声明引用类型的时候，程序每次都会创建出一个新的实例，存放在堆里不同的地址，引用类型数据保存的只是指向这个地址的指针，而引用类型在进行比较的时候，也就是比较两个对象的堆内存中的地址是否相同，我们上面提到的[] &#x3D;&#x3D; []这个命题中，等式前后，都是新声明的一个空数组的实例化对象，分别会存放在两个不同的地址，因为地址不同，所以结果为false。</p>
-<h2 id="怎么理解-x3D-x3D-为-true"><a href="#怎么理解-x3D-x3D-为-true" class="headerlink" title="怎么理解 [] &#x3D;&#x3D; ![] 为 true"></a>怎么理解 [] &#x3D;&#x3D; ![] 为 true</h2><p>首先，&#x3D;&#x3D; 的比较规则，最后都是转换成 Number 来比较的。</p>
-<!--
-    这个就要说到 
-    左侧[]:
-    1.数组不是基本类型，需要先 ToPrimitive([])转换成原始类型， 即 ""。
-    2.接下来 ToNumber("")， 即 0。
-    右侧![]:
-    1.![]， 即 false。
-    2.接下来 ToNumber(false)， 即 0。
-    所以 0 == 0，[] == ![] 为 true。
--->
-
-<p><a target="_blank" rel="noopener" href="http://www.ecma-international.org/ecma-262/5.1/#sec-11.9.1" title="== 的定义">&#x3D;&#x3D; 的定义</a>是：<br>The production EqualityExpression : EqualityExpression &#x3D;&#x3D; RelationalExpression is evaluated as follows:</p>
-<ul>
-<li>Let lref be the result of evaluating EqualityExpression.</li>
-<li>Let lval be GetValue(lref).</li>
-<li>Let rref be the result of evaluating RelationalExpression.</li>
-<li>Let rval be GetValue(rref).</li>
-<li>Return the result of performing abstract equality comparison rval &#x3D;&#x3D; lval. (see 11.9.3).</li>
-</ul>
-<p>上面提到比较的行为在 11.9.3 节里，所以翻到 11.9.3：</p>
-<p>The comparison x &#x3D;&#x3D; y, where x and y are values, produces true or false. Such a comparison is performed as follows:</p>
-<ul>
-<li>If Type(x) is the same as Type(y), then<br>- If Type(x) is Undefined, return true.<br>- If Type(x) is Null, return true.<br>- If Type(x) is Number, then<br>    - If x is NaN, return false.<br>    - If y is NaN, return false.<br>    - If x is the same Number value as y, return true.<br>    - If x is +0 and y is −0, return true.<br>    - If x is −0 and y is +0, return true.<br>    - Return false.<br>- If Type(x) is String, then return true if x and y are exactly the same sequence of characters (same length and same characters in corresponding positions). Otherwise, return false.<br>- If Type(x) is Boolean, return true if x and y are both true or both false. Otherwise, return false.<br>- Return true if x and y refer to the same object. Otherwise, return false.</li>
-<li>If x is null and y is undefined, return true.</li>
-<li>If x is undefined and y is null, return true.</li>
-<li>If Type(x) is Number and Type(y) is String,return the result of the comparison x &#x3D;&#x3D; ToNumber(y).</li>
-<li>If Type(x) is String and Type(y) is Number,return the result of the comparison ToNumber(x) &#x3D;&#x3D; y.</li>
-<li>If Type(x) is Boolean, return the result of the comparison ToNumber(x) &#x3D;&#x3D; y.</li>
-<li>If Type(y) is Boolean, return the result of the comparison x &#x3D;&#x3D; ToNumber(y).</li>
-<li>If Type(x) is either String or Number and Type(y) is Object,return the result of the comparison x &#x3D;&#x3D; ToPrimitive(y).</li>
-<li>If Type(x) is Object and Type(y) is either String or Number,return the result of the comparison ToPrimitive(x) &#x3D;&#x3D; y.</li>
-<li>Return false.</li>
-</ul>
-<ol>
-<li>在这段算法里，我们看到由于数组不是基本类型，需要先 ToPrimitive([])转换成原始类型， 即 “”。<br> 接下来 ToNumber(“”)， 即 0。</li>
-<li>![]， 即 false。</li>
-</ol>
-<p>结果，[] &#x3D;&#x3D; ![] 的比较最后落到了 0 &#x3D;&#x3D; 0 上，所以结果为 true。</p>
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/29615998/answer/45667956">https://www.zhihu.com/question/29615998/answer/45667956</a><br><a target="_blank" rel="noopener" href="http://www.uw3c.com/jsviews/js102.html">http://www.uw3c.com/jsviews/js102.html</a></p>
 
       
     </div>
