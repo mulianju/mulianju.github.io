@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/config.min.js"></script>
+
+    <meta name="description" content="输入URL后的全过程一般会经历以下几个过程：  首先，在浏览器地址栏中输入URL； 浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作； 在发送HTTP请求前，需要域名解析(DNS解析)，解析获取相应的IP地址； 浏览器向服务器发起TCP连接，与浏览器建立TCP三次握手； 握手成功后，浏览器向服务器发送HTTP请求，请求数据包； 服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端性能优化-输入URL后全过程&amp;&amp;页面渲染机制&amp;&amp;DOM生成过程(转)">
+<meta property="og:url" content="http://mulianju.com/performance-after-enter-url/index.html">
+<meta property="og:site_name" content="FrontEnd Club">
+<meta property="og:description" content="输入URL后的全过程一般会经历以下几个过程：  首先，在浏览器地址栏中输入URL； 浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作； 在发送HTTP请求前，需要域名解析(DNS解析)，解析获取相应的IP地址； 浏览器向服务器发起TCP连接，与浏览器建立TCP三次握手； 握手成功后，浏览器向服务器发送HTTP请求，请求数据包； 服务器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/1.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/2.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/3.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/4.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/5.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/6.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/7.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/8.png">
+<meta property="article:published_time" content="2022-08-31T17:24:23.000Z">
+<meta property="article:modified_time" content="2022-09-20T07:48:18.325Z">
+<meta property="article:author" content="Mulianju">
+<meta property="article:tag" content="前端性能优化">
+<meta property="article:tag" content="首屏加载速度">
+<meta property="article:tag" content="URL解析过程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://mulianju.com/images/articles/performance-after-enter-URL/1.png">
+
+
+<link rel="canonical" href="http://mulianju.com/performance-after-enter-url/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://mulianju.com/performance-after-enter-url/","path":"performance-after-enter-url/","title":"前端性能优化-输入URL后全过程&&页面渲染机制&&DOM生成过程(转)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>前端性能优化-输入URL后全过程&&页面渲染机制&&DOM生成过程(转) | FrontEnd Club</title>
+  
+
+
+
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "d6hqjne2nd");
+</script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">FrontEnd Club</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">前端俱乐部</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">123</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-calendar fa-fw"></i>tools</a></li><li class="menu-item menu-item-books"><a href="/books/" rel="section"><i class="fa fa-calendar fa-fw"></i>books</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5URL%E5%90%8E%E7%9A%84%E5%85%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">输入URL后的全过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">页面渲染机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML%E7%9A%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">HTML的加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.2.</span> <span class="nav-text">其他静态资源加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM%E6%A0%91%E6%9E%84%E5%BB%BA"><span class="nav-number">2.3.</span> <span class="nav-text">DOM树构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSSOM%E6%A0%91%E6%9E%84%E5%BB%BA"><span class="nav-number">2.4.</span> <span class="nav-text">CSSOM树构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E6%A0%91%E6%9E%84%E5%BB%BA"><span class="nav-number">2.5.</span> <span class="nav-text">渲染树构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B1%80%E8%AE%A1%E7%AE%97"><span class="nav-number">2.6.</span> <span class="nav-text">布局计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93"><span class="nav-number">2.7.</span> <span class="nav-text">渲染</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM"><span class="nav-number">3.</span> <span class="nav-text">DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-DOM"><span class="nav-number">3.1.</span> <span class="nav-text">什么是 DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM-%E6%A0%91%E5%A6%82%E4%BD%95%E7%94%9F%E6%88%90"><span class="nav-number">3.2.</span> <span class="nav-text">DOM 树如何生成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML-%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="nav-number">3.2.1.</span> <span class="nav-text">HTML 解析器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-%E6%98%AF%E5%A6%82%E4%BD%95%E5%BD%B1%E5%93%8DDOM%E7%94%9F%E6%88%90%E7%9A%84"><span class="nav-number">3.3.</span> <span class="nav-text">JS 是如何影响DOM生成的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%B5%8CJS"><span class="nav-number">3.3.1.</span> <span class="nav-text">内嵌JS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5JS%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.2.</span> <span class="nav-text">引入JS文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5CSS%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.3.</span> <span class="nav-text">引入CSS文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E5%B1%95-CSS%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">拓展-CSS优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS%E5%AF%B9%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">4.1.</span> <span class="nav-text">CSS对渲染过程的影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD"><span class="nav-number">4.2.</span> <span class="nav-text">CSS异步加载</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Mulianju"
+      src="/images/Cloud.jpg">
+  <p class="site-author-name" itemprop="name">Mulianju</p>
+  <div class="site-description" itemprop="description">前端俱乐部</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">123</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/mulianju" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;mulianju" rel="noopener" target="_blank"><i class="github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:mulianju@qq.com" title="E-Mail → mailto:mulianju@qq.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i></a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://mulianju.com/performance-after-enter-url/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Cloud.jpg">
+      <meta itemprop="name" content="Mulianju">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FrontEnd Club">
+      <meta itemprop="description" content="前端俱乐部">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="前端性能优化-输入URL后全过程&&页面渲染机制&&DOM生成过程(转) | FrontEnd Club">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          前端性能优化-输入URL后全过程&&页面渲染机制&&DOM生成过程(转)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-31 17:24:23" itemprop="dateCreated datePublished" datetime="2022-08-31T17:24:23Z">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-20 07:48:18" itemprop="dateModified" datetime="2022-09-20T07:48:18Z">2022-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">性能优化</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/performance-after-enter-url/" class="post-meta-item leancloud_visitors" data-flag-title="前端性能优化-输入URL后全过程&&页面渲染机制&&DOM生成过程(转)" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="输入URL后的全过程"><a href="#输入URL后的全过程" class="headerlink" title="输入URL后的全过程"></a>输入URL后的全过程</h2><p>一般会经历以下几个过程：</p>
+<ol>
+<li>首先，在浏览器地址栏中输入<code>URL</code>；</li>
+<li>浏览器先查看浏览器缓存-系统缓存-路由器缓存，如果缓存中有，会直接在屏幕中显示页面内容。若没有，则跳到第三步操作；</li>
+<li>在发送<code>HTTP</code>请求前，需要域名解析(<code>DNS</code>解析)，解析获取相应的IP地址；</li>
+<li>浏览器向服务器发起<code>TCP</code>连接，与浏览器建立<code>TCP</code>三次握手；</li>
+<li>握手成功后，浏览器向服务器发送<code>HTTP</code>请求，请求数据包；</li>
+<li>服务器处理收到的请求，将数据返回至浏览器；</li>
+<li>浏览器收到<code>HTTP</code>响应；</li>
+<li>读取页面内容，浏览器渲染，解析<code>HTML</code>源码，并请求<code>HTML</code>代码中的资源(如<code>JS</code>、<code>CSS</code>、图片等）；</li>
+<li>断开<code>TCP</code>连接；</li>
+<li>浏览器对页面进行渲染呈现给用户；</li>
+<li><code>AJAX</code>查询。</li>
+</ol>
+<p>其中，步骤2的具体过程是：</p>
+<ul>
+<li><strong>浏览器缓存</strong>：浏览器会记录<code>DNS</code>一段时间，因此，只是第一个地方解析<code>DNS</code>请求；</li>
+<li><strong>操作系统缓存</strong>：如果在浏览器缓存中不包含这个记录，则会使系统调用操作系统，获取操作系统的记录(保存最近的<code>DNS</code>查询缓存)；</li>
+<li><strong>路由器缓存</strong>：如果上述两个步骤均不能成功获取<code>DNS</code>记录，继续搜索路由器缓存；</li>
+<li><strong>ISP缓存</strong>：若上述均失败，继续向<code>ISP</code>搜索。</li>
+</ul>
+<h2 id="页面渲染机制"><a href="#页面渲染机制" class="headerlink" title="页面渲染机制"></a>页面渲染机制</h2><h3 id="HTML的加载"><a href="#HTML的加载" class="headerlink" title="HTML的加载"></a>HTML的加载</h3><p><code>HTML</code>是一个网页的基础，下载完成后解析。</p>
+<h3 id="其他静态资源加载"><a href="#其他静态资源加载" class="headerlink" title="其他静态资源加载"></a>其他静态资源加载</h3><ul>
+<li><code>HTML</code>顺序加载，其中<code>JS</code>会阻塞后续<code>DOM</code>和资源加载，如果代码里引用了外部的<code>CSS</code>文件，那么在执行<code>JS</code>之前，还需要等待外部的<code>CSS</code>文件下载完成，并解析生成<code>CSSOM</code>对象之后，才能执行<code>JS</code>脚本。</li>
+<li>浏览器会使用<code>prefetch</code>对引用的资源提前下载。</li>
+<li>如果<code>script</code>标签没有设置<code>defer</code>或<code>async</code>属性，<code>HTML</code>的解析会停下来，浏览器会立即加载并执行指定的脚本，等<code>JS</code>下载完执行结束后才继续解析<code>HTML</code>，以防止<code>JS</code>修改已经完成的解析结果。</li>
+<li>遇到有设置<code>async</code>属性的<code>script</code>标签，加载和渲染后续文档元素的过程将和<code>JS</code>的加载与执行并行进行（下载异步，执行同步，加载完就执行）。</li>
+<li>遇到有设置<code>defer</code>属性的<code>script</code>标签，加载后续文档元素的过程将和<code>JS</code>的加载并行进行（异步），但是<code>JS</code>的执行要在所有元素解析完成之后，<code>DOMContentLoaded</code>事件触发之前完成。</li>
+</ul>
+<h3 id="DOM树构建"><a href="#DOM树构建" class="headerlink" title="DOM树构建"></a>DOM树构建</h3><p>在<code>HTML</code>解析的同时，解析器会把解析完成的结果转换成<code>DOM</code>对象，再进一步构建<code>DOM</code>树。</p>
+<h3 id="CSSOM树构建"><a href="#CSSOM树构建" class="headerlink" title="CSSOM树构建"></a>CSSOM树构建</h3><p><code>CSS</code>下载完之后对<code>CSS</code>进行解析，解析成<code>CSS</code>对象，然后把<code>CSS</code>对象组装起来，构建<code>CSSOM</code>树。</p>
+<h3 id="渲染树构建"><a href="#渲染树构建" class="headerlink" title="渲染树构建"></a>渲染树构建</h3><p>当<code>DOM</code>树和<code>CSSOM</code>树都构建完之后，浏览器根据这两个树构建一棵渲染树。</p>
+<h3 id="布局计算"><a href="#布局计算" class="headerlink" title="布局计算"></a>布局计算</h3><p>渲染树构建完成以后，浏览器计算所有元素大小和绝对位置。</p>
+<h3 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h3><p>布局计算完成后，浏览器在页面渲染元素。经过渲染引擎处理后，整个页面就显示出来。<br>构建<code>DOM</code>树-&gt;构建渲染树-&gt;布局渲染树：计算盒模型位置和大小-&gt;绘制渲染树。</p>
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><h3 id="什么是-DOM"><a href="#什么是-DOM" class="headerlink" title="什么是 DOM"></a>什么是 DOM</h3><p>从网络传给渲染引擎的 <code>HTML</code> 文件字节流是无法直接被渲染引擎理解的，所以要将其转化为渲染引擎能够理解的内部结构，这个结构就是 <code>DOM</code>。<code>DOM</code> 提供了对 <code>HTML</code> 文档结构化的表述。<br>在渲染引擎中，<code>DOM</code> 有三个层面的作用:</p>
+<p>从页面的视角来看，<code>DOM</code> 是生成页面的基础数据结构。</p>
+<ul>
+<li>从 <code>JS</code> 脚本视角来看，<code>DOM</code> 提供给 <code>JS</code> 脚本操作的接口，通过这套接口，<code>JS</code> 可以对 <code>DOM</code> 结构进行访问，从而改变文档的结构、样式和内容。</li>
+<li>从安全视角来看，<code>DOM</code> 是一道安全防护线，一些不安全的内容在 <code>DOM</code> 解析阶段就被拒之门外了。</li>
+<li>概述：<code>DOM</code> 是表述 <code>HTML</code> 的内部数据结构，它会将 <code>Web</code> 页面和 <code>JS</code> 脚本连接起来，并过滤一些不安全的内容。</li>
+</ul>
+<h3 id="DOM-树如何生成"><a href="#DOM-树如何生成" class="headerlink" title="DOM 树如何生成"></a>DOM 树如何生成</h3><h4 id="HTML-解析器"><a href="#HTML-解析器" class="headerlink" title="HTML 解析器"></a>HTML 解析器</h4><p>在渲染引擎内部，有一个叫<code>HTML</code> 解析器（<code>HTMLParser</code>）的模块。</p>
+<p><code>HTML</code> 解释器的工作就是将网络或者本地磁盘获取的 <code>HTML</code> 网页和资源从字节流解释成 <code>DOM</code> 树结构。</p>
+<p><code>HTML</code> 解析器并不是等整个文档加载完成之后再解析的，而是网络进程加载了多少数据，<code>HTML</code> 解析器便解析多少数据。</p>
+<p>网络进程接收到响应头之后，会根据响应头中的 <code>content-type</code> 字段来判断文件的类型，比如 <code>content-type</code> 的值是<code>text/html</code>，那么浏览器就会判断这是一个 <code>HTML</code> 类型的文件，然后为该请求选择或者创建一个渲染进程。渲染进程准备好之后，网络进程和渲染进程之间会建立一个共享数据的管道，网络进程接收到数据后就往这个管道里面放，而渲染进程则从管道的另外一端不断地读取数据，并同时将读取的数据“喂”给 <code>HTML</code> 解析器。</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/1.png" alt="字节流转换为`DOM`"></p>
+<p>字节流转换为 <code>DOM</code> 需要三个阶段：</p>
+<ul>
+<li><p>第一个阶段，通过分词器将字节流转换为 <code>Token</code>。</p>
+<p> <img data-src="/../images/articles/performance-after-enter-URL/2.png" alt="生成的`Token`示意图"></p>
+</li>
+<li><p>后续的第二个和第三个阶段是同步进行的，需要将 <code>Token</code> 解析为 <code>DOM</code> 节点，并将 <code>DOM</code> 节点添加到 <code>DOM</code> 树中。</p>
+</li>
+</ul>
+<p><code>HTML</code> 解析器维护了一个<code>Token</code> 栈结构，该 <code>Token</code> 栈主要用来计算节点之间的父子关系，在第一个阶段中生成的 <code>Token</code> 会被按照顺序压到这个栈中。具体的处理规则如下所示：</p>
+<ul>
+<li><p>如果压入到栈中的是<code>StartTag Token</code>，<code>HTML</code> 解析器会为该 <code>Token</code> 创建一个 <code>DOM</code> 节点，然后将该节点加入到 <code>DOM</code> 树中，它的父节点就是栈中相邻的那个元素生成的节点。</p>
+</li>
+<li><p>如果分词器解析出来是文本 <code>Token</code>，那么会生成一个文本节点，然后将该节点加入到 <code>DOM</code> 树中，文本 <code>Token</code> 是不需要压入到栈中，它的父节点就是当前栈顶 <code>Token</code> 所对应的 <code>DOM</code> 节点。</p>
+</li>
+<li><p>如果分词器解析出来的是<code>EndTag</code> 标签，比如是 <code>EndTag div</code>，<code>HTML</code> 解析器会查看 <code>Token</code> 栈顶的元素是否是 <code>StarTag div</code>，如果是，就将 <code>StartTag div</code> 从栈中弹出，表示该 <code>div</code> 元素解析完成。</p>
+</li>
+<li><p>通过分词器产生的新 <code>Token</code> 就这样不停地压栈和出栈，整个解析过程就这样一直持续下去，直到分词器将所有字节流分词完成。</p>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这段代码以字节流的形式传给了 <code>HTML</code> 解析器，经过分词器处理，</p>
+<p>解析出来的第一个 <code>Token</code> 是 <code>StartTag HTML</code>，解析出来的 <code>Token</code> 会被压入到栈中，并同时创建一个 <code>HTML</code> 的 <code>DOM</code> 节点，将其加入到 <code>DOM</code> 树中</p>
+<p>这里需要补充说明下，<code>HTML</code> 解析器开始工作时，会默认创建了一个根为 <code>document</code> 的空 <code>DOM</code> 结构，同时会将一个 <code>StartTag document</code> 的 <code>Token</code> 压入栈底。然后经过分词器解析出来的第一个 <code>StartTag HTML Token</code> 会被压入到栈中，并创建一个 <code>HTML</code> 的 <code>DOM</code> 节点，添加到 <code>document</code> 上，如下图所示</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/3.png" alt="解析到StartTag `HTML`时的状态"></p>
+<p>然后按照同样的流程解析出来 <code>StartTag body</code> 和 <code>StartTag div</code>，其 <code>Token</code> 栈和 <code>DOM</code> 的状态如下图所示：</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/4.png" alt="解析到StartTag div时的状态"></p>
+<p>接下来解析出来的是第一个 <code>div</code> 的文本 <code>Token</code>，渲染引擎会为该 <code>Token</code> 创建一个文本节点，并将该 <code>Token</code> 添加到 <code>DOM</code> 中，它的父节点就是当前 <code>Token</code> 栈顶元素对应的节点，如下图所示：</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/5.png" alt="解析出第一个文本`Token`时的状态"></p>
+<p>再接下来，分词器解析出来第一个 <code>EndTag div</code>，这时候 <code>HTML</code> 解析器会去判断当前栈顶的元素是否是 <code>StartTag div</code>，如果是则从栈顶弹出 <code>StartTag div</code>，如下图所示</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/6.png" alt="元素弹出`Token`栈示意图"></p>
+<p>按照同样的规则，一路解析，最终结果如下图所示：</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/7.png" alt="最终解析结果"></p>
+<h3 id="JS-是如何影响DOM生成的"><a href="#JS-是如何影响DOM生成的" class="headerlink" title="JS 是如何影响DOM生成的"></a>JS 是如何影响DOM生成的</h3><h4 id="内嵌JS"><a href="#内嵌JS" class="headerlink" title="内嵌JS"></a>内嵌JS</h4><p>例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> div1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;div&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="language-javascript">      div1.<span class="property">innerText</span> = <span class="string">&#x27;Hello Mulianju~&#x27;</span></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我在两段 <code>div</code> 中间插入了一段 <code>JS</code> 脚本，这段脚本的解析过程就有点不一样了。<code>script</code>标签之前，所有的解析流程还是和之前介绍的一样，但是解析到<code>script</code>标签时，渲染引擎判断这是一段脚本，此时 <code>HTML</code> 解析器就会暂停 <code>DOM</code> 的解析，因为接下来的 <code>JS</code> 可能要修改当前已经生成的 <code>DOM</code> 结构。</p>
+<p>通过前面 <code>DOM</code> 生成流程分析，我们已经知道当解析到<code>script</code>脚本标签时，其 <code>DOM</code> 树结构如下所示：</p>
+<p><img data-src="/../images/articles/performance-after-enter-URL/8.png" alt="`DOM`树"></p>
+<p>这时候 <code>HTML</code> 解析器暂停工作，<code>JS</code> 引擎介入，并执行<code>script</code>标签中的这段脚本，因为这段 <code>JS</code> 脚本修改了 <code>DOM</code> 中第一个 <code>div</code> 中的内容，所以执行这段脚本之后，<code>div</code> 节点内容已经修改为 <code>Hello Mulianju~</code> 了。脚本执行完成之后，<code>HTML</code> 解析器恢复解析过程，继续解析后续的内容，直至生成最终的 <code>DOM</code>。</p>
+<h4 id="引入JS文件"><a href="#引入JS文件" class="headerlink" title="引入JS文件"></a>引入JS文件</h4><p>除了在页面中直接内嵌 <code>JS</code> 脚本之外，我们还通常需要在页面中引入 <code>JS</code> 文件，这个解析过程就稍微复杂了些，如下面代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//foo.js</span></span><br><span class="line"><span class="keyword">let</span> div1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;div&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">div1.<span class="property">innerText</span> = <span class="string">&#x27;Hello Mulianju~&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&#x27;foo.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>执行到 <code>script</code> 标签时，暂停整个 <code>DOM</code> 的解析，执行 <code>JS</code> 代码，不过这里执行 <code>JS</code> 时，需要先下载这段 <code>JS</code> 代码。这里需要重点关注下载环境，因为<code>JS</code> 文件的下载过程会阻塞 <code>DOM</code> 解析，而通常下载又是非常耗时的，会受到网络环境、<code>JS</code> 文件大小等因素的影响。</p>
+<p><code>Chrome</code> 浏览器做了很多优化，其中一个主要的优化是预解析操作。当渲染引擎收到字节流之后，会开启一个预解析线程，用来分析 <code>HTML</code> 文件中包含的 <code>JS</code>、<code>CSS</code> 等相关文件，解析到相关文件之后，预解析线程会提前下载这些文件。</p>
+<p>再回到 <code>DOM</code> 解析上，我们知道引入 <code>JS</code> 线程会阻塞 <code>DOM</code>，不过也有一些相关的策略来规避，比如使用 <code>CDN</code> 来加速 <code>JS</code> 文件的加载，压缩 <code>JS</code> 文件的体积。</p>
+<p>另外，如果 <code>JS</code> 文件中没有操作 <code>DOM</code> 相关代码，就可以将该 <code>JS</code> 脚本设置为异步加载，通过 <code>async</code> 或 <code>defer</code> 来标记代码，使用方式如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">async</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&#x27;foo.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&#x27;foo.js&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>async</code> 和 <code>defer</code> 虽然都是异步的，不过还有一些差异：</p>
+<ul>
+<li>使用 <code>async</code> 标志的脚本文件一旦加载完成，会立即执行；</li>
+<li>而使用了 <code>defer</code> 标记的脚本文件，需要在 <code>DOMContentLoaded</code> 事件之前执行。</li>
+</ul>
+<p>或者将 <code>script</code> 元素放在 <code>body</code> 元素后面。</p>
+<h4 id="引入CSS文件"><a href="#引入CSS文件" class="headerlink" title="引入CSS文件"></a>引入CSS文件</h4><p>引入外部<code>CSS</code>样式表</p>
+<ol>
+<li><p>外链式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;要引入的css文件的路径&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">   <span class="keyword">@import</span> URL(<span class="string">&#x27;要导入的css文件的路径&#x27;</span>);</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><code>link</code>和<code>import</code>导入外部样式区别:</p>
+<ol>
+<li><p><strong>加载顺序</strong><br>当一个页面被加载的时候（就是被浏览者浏览的时候），<code>link</code>引用的<code>CSS</code>会同时被加载，而<code>@import</code>引用的<code>CSS</code> 会等到页面全部被下载完再被加载。所以有时候浏览<code>@import</code>加载<code>CSS</code>的页面时开始会没有样式。</p>
+</li>
+<li><p><strong>使用<code>DOM</code>控制样式差别</strong><br>当使用<code>JS</code>控制<code>DOM</code>去改变样式的时候，只能使用<code>link</code>标签，因为<code>@import</code>不是<code>DOM</code>可以控制的.</p>
+</li>
+</ol>
+<p>一个例子:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;要引入的css文件的路径&quot;</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">let</span> div1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;div&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="language-javascript">         div1.<span class="property">innerText</span> = <span class="string">&#x27;Hello Mulianju~&#x27;</span> <span class="comment">// 需要 DOM</span></span></span><br><span class="line"><span class="language-javascript">         div1.<span class="property">style</span>.<span class="property">color</span> = <span class="string">&#x27;red&#x27;</span>  <span class="comment">// 需要 CSSOM</span></span></span><br><span class="line"><span class="language-javascript">      </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>JS</code> 代码出现了 <code>div1.style.color = &#39;red&#39;</code> 的语句，它是用来操纵 <code>CSSOM</code> 的，所以在执行 <code>JS</code> 之前，需要先解析 <code>JS</code> 语句之上所有的 <code>CSS</code> 样式。所以如果代码里引用了外部的 <code>CSS</code> 文件，那么在执行 <code>JS</code> 之前，还需要等待外部的 <code>CSS</code> 文件下载完成，并解析生成 <code>CSSOM</code> 对象之后，才能执行 <code>JS</code> 脚本。</p>
+<p><code>JS</code> 引擎在解析 <code>JS</code> 之前，是不知道 <code>JS</code> 是否操纵了 <code>CSSOM</code> 的，所以渲染引擎在遇到 <code>JS</code> 脚本时，不管该脚本是否操纵了 <code>CSSOM</code>，都会执行 CSS 文件下载，解析操作，再执行 <code>JS</code> 脚本。</p>
+<p><code>JS</code> 脚本是依赖样式表的，这又多了一个阻塞过程。</p>
+<p><code>JS</code> 会阻塞 <code>DOM</code> 生成，而样式文件又会阻塞 <code>JS</code> 的执行，所以在实际的工程中需要重点关注 <code>JS</code> 文件和样式表文件，使用不当会影响到页面性能的。</p>
+<p><code>CSS</code> 不会阻塞 <code>DOM</code> 的解析，但会阻塞 <code>DOM</code> 渲染。<br><code>JS</code> 阻塞 <code>DOM</code> 解析，但浏览器会”偷看”<code>DOM</code>，预先下载相关资源。<br>浏览器遇到<code>&lt;script&gt;</code>且没有<code>defer</code>或<code>async</code>属性的标签时，会触发页面渲染，因而如果前面<code>CSS</code>资源尚未加载完毕时，浏览器会等待它加载完毕在执行脚本。</p>
+<h2 id="拓展-CSS优化"><a href="#拓展-CSS优化" class="headerlink" title="拓展-CSS优化"></a>拓展-CSS优化</h2><h3 id="CSS对渲染过程的影响"><a href="#CSS对渲染过程的影响" class="headerlink" title="CSS对渲染过程的影响"></a>CSS对渲染过程的影响</h3><ul>
+<li><code>CSS</code>加载不会阻塞<code>DOM</code>树的解析</li>
+<li><code>CSS</code>加载会阻塞<code>DOM</code>树的渲染</li>
+<li><code>CSS</code>加载会阻塞后面<code>JS</code>语句的执行，而<code>JS</code>又会阻塞<code>DOM</code>树的解析</li>
+</ul>
+<p>应该尽可能的提高<code>CSS</code>加载速度，比如可以使用以下几种方法:</p>
+<ul>
+<li>使用<code>CDN</code>(因为<code>CDN</code>会根据你的网络状况，替你挑选最近的一个具有缓存内容的节点为你提供资源，因此可以减少加载时间)；</li>
+<li>对<code>CSS</code>进行压缩(可以用很多打包工具，比如<code>webpack</code>、<code>gulp</code>等，也可以通过开启<code>gzip</code>压缩)；</li>
+<li>合理的使用缓存(设置<code>cache-control</code>，<code>expires</code>，以及<code>E-tag</code>都是不错的，为了在文件更新后保证能拿到最新的文件，通常在打包的时候文件名字后面加一个版本号)；</li>
+<li>减少<code>HTTP</code>请求数，将多个<code>CSS</code>文件合并，或者是干脆直接写成内联样式(内联样式的一个缺点就是不能缓存)。</li>
+</ul>
+<h3 id="CSS异步加载"><a href="#CSS异步加载" class="headerlink" title="CSS异步加载"></a>CSS异步加载</h3><p>通过 <code>JS</code> 动态插入 <code>link</code> 标签来异步载入 <code>CSS</code> 代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myCSS = <span class="variable language_">document</span>.<span class="title function_">createElement</span>( <span class="string">&quot;link&quot;</span> );</span><br><span class="line">myCSS.<span class="property">rel</span> = <span class="string">&quot;stylesheet&quot;</span>;</span><br><span class="line">myCSS.<span class="property">href</span> = <span class="string">&quot;mystyles.css&quot;</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">head</span>.<span class="title function_">insertBefore</span>( myCSS, <span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>[ <span class="variable language_">document</span>.<span class="property">head</span>.<span class="property">childNodes</span>.<span class="property">length</span> - <span class="number">1</span> ].<span class="property">nextSibling</span> );</span><br></pre></td></tr></table></figure>
+
+<p>利用 <code>link</code> 上的 <code>media</code> 属性</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">media <span class="comment">// 属性规定被链接文档将显示在什么设备上。</span></span><br></pre></td></tr></table></figure>
+
+<p>取值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">screen        <span class="comment">// 计算机屏幕（默认）。</span></span><br><span class="line">tty           <span class="comment">// 电传打字机以及类似的使用等宽字符网格的媒介。</span></span><br><span class="line">tv            <span class="comment">// 电视机类型设备（低分辨率、有限的滚屏能力）。</span></span><br><span class="line">projection    <span class="comment">// 放映机。</span></span><br><span class="line">handheld      <span class="comment">// 手持设备（小屏幕、有限带宽）。</span></span><br><span class="line">print         <span class="comment">// 打印预览模式/打印页面。</span></span><br><span class="line">braille       <span class="comment">// 盲人点字法反馈设备。</span></span><br><span class="line">aural         <span class="comment">// 语音合成器。</span></span><br><span class="line">all           <span class="comment">// 适用于所有设备。</span></span><br></pre></td></tr></table></figure>
+
+<p>将它设置为和用户当前浏览器环境不匹配的值，比如：<code>media=&quot;print&quot;</code>，甚至可以设置为一个完全无效的值 <code>media=&quot;jscourse&quot;</code> 之类的。浏览器就会认为这个 <code>CSS</code> 文件优先级非常低，就会在不阻塞的情况下进行加载。最后为了让 <code>CSS</code> 规则生效，再将 <code>media</code> 值改对。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;cssfile.css&quot;</span> <span class="attr">media</span>=<span class="string">&quot;jscourse&quot;</span> <span class="attr">onload</span>=<span class="string">&quot;this.media=&#x27;all&#x27;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>利用规范中新增加的 <code>rel=&quot;preload&quot;</code></p>
+<p>通过 <code>preload</code> 属性值就是告诉浏览器这个资源文件随后会用到，请提前加载好。但是这只是加载，所以你看当它加载完毕后，还是需要将 <code>rel</code> 值改回去，这才能让 <code>CSS</code> 生效。</p>
+<p>看上去和第二种方法差不多，但是呢，语义上更加好一些。另外就是你仔细点就会发现 <code>as=&quot;style&quot;</code>这个属性，所以 <code>preload</code> 不仅仅可以用在 <code>CSS</code> 文件上，而是可以用在绝大多数的资源文件上。比如：<code>JS</code> 文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;scriptfile.js&quot;</span> <span class="attr">as</span>=<span class="string">&quot;script&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后要用的时候，就创建一个 <code>script</code> 标签指向它：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> script = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;script&quot;</span>);</span><br><span class="line">script.<span class="property">src</span> = <span class="string">&quot;scriptfile.js&quot;</span>;</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(script);</span><br></pre></td></tr></table></figure>
+
+<p>这个时候浏览器就直接从缓存中拿这个文件了，不会再发请求了，因为此前已经加载好了。</p>
+<p>转载自:</p>
+<ul>
+<li><a href="%5Bhttps://%5D(https://blog.csdn.net/qq_39903567/article/details/115265394)">输入URL后全过程&amp;&amp;页面渲染机制&amp;&amp;DOM生成过程</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 前端性能优化</a>
+              <a href="/tags/%E9%A6%96%E5%B1%8F%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/" rel="tag"># 首屏加载速度</a>
+              <a href="/tags/URL%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B/" rel="tag"># URL解析过程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/performance-blank-screen/" rel="prev" title="前端性能优化-白屏时间(转)">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化-白屏时间(转)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mulianju</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">102k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:33</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/motion.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/next-boot.min.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"PhM46x479VdghmjQ6E23klrX-gzGzoHsz","app_key":"BrjdffHkXwYjylSyAVkPKYue","server_url":"https://phm46x47.lc-cn-n1-shared.com","security":true}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.12.2/third-party/statistics/lean-analytics.min.js"></script>
+
+
+
+</body>
+</html>
