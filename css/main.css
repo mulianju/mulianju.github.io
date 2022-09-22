@@ -2689,3 +2689,6 @@ ul.breadcrumb li:last-child {
     margin-bottom: 10px;
   }
 }
+#taboola-livere {
+  display: none;
+}
