@@ -27,22 +27,22 @@
 <meta property="og:site_name" content="FrontEnd Club">
 <meta property="og:description" content="前端性能优化，很大一部分工作就是首屏加载和渲染的优化，要进行这项工作，首先就需要了解浏览器在输入URL到呈现页面之间都做了哪些工作，哪些步骤有哪些需要注意的事项和优化手段。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic1.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic2.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic3.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic4.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic5.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic6.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic7.png">
-<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic8.png">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic1.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic2.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic3.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic4.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic5.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic6.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic7.png#pic_center">
+<meta property="og:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic8.png#pic_center">
 <meta property="article:published_time" content="2022-08-31T17:24:23.000Z">
-<meta property="article:modified_time" content="2022-09-21T03:15:00.236Z">
+<meta property="article:modified_time" content="2022-09-21T03:17:42.791Z">
 <meta property="article:author" content="Mulianju">
 <meta property="article:tag" content="前端性能优化">
 <meta property="article:tag" content="首屏加载速度">
 <meta property="article:tag" content="URL解析过程">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic1.png">
+<meta name="twitter:image" content="http://mulianju.com/images/articles/performance-after-enter-url/pic1.png#pic_center">
 
 
 <link rel="canonical" href="http://mulianju.com/performance-after-enter-url/">
@@ -247,7 +247,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-21 03:15:00" itemprop="dateModified" datetime="2022-09-21T03:15:00Z">2022-09-21</time>
+      <time title="修改时间：2022-09-21 03:17:42" itemprop="dateModified" datetime="2022-09-21T03:17:42Z">2022-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -337,11 +337,11 @@
 <p><code>HTML</code> 解释器的工作就是将网络或者本地磁盘获取的 <code>HTML</code> 网页和资源从字节流解释成 <code>DOM</code> 树结构。</p>
 <p><code>HTML</code> 解析器并不是等整个文档加载完成之后再解析的，而是网络进程加载了多少数据，<code>HTML</code> 解析器便解析多少数据。</p>
 <p>网络进程接收到响应头之后，会根据响应头中的 <code>content-type</code> 字段来判断文件的类型，比如 <code>content-type</code> 的值是<code>text/html</code>，那么浏览器就会判断这是一个 <code>HTML</code> 类型的文件，然后为该请求选择或者创建一个渲染进程。渲染进程准备好之后，网络进程和渲染进程之间会建立一个共享数据的管道，网络进程接收到数据后就往这个管道里面放，而渲染进程则从管道的另外一端不断地读取数据，并同时将读取的数据“喂”给 <code>HTML</code> 解析器。</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic1.png" alt="字节流转换为`DOM`"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic1.png#pic_center" alt="字节流转换为`DOM`"></p>
 <p>字节流转换为 <code>DOM</code> 需要三个阶段：</p>
 <ul>
 <li><p>第一个阶段，通过分词器将字节流转换为 <code>Token</code>。</p>
-<p> <img data-src="/../images/articles/performance-after-enter-url/pic2.png" alt="生成的`Token`示意图"></p>
+<p> <img data-src="/../images/articles/performance-after-enter-url/pic2.png#pic_center" alt="生成的`Token`示意图"></p>
 </li>
 <li><p>后续的第二个和第三个阶段是同步进行的，需要将 <code>Token</code> 解析为 <code>DOM</code> 节点，并将 <code>DOM</code> 节点添加到 <code>DOM</code> 树中。</p>
 </li>
@@ -363,21 +363,21 @@
 <p>这段代码以字节流的形式传给了 <code>HTML</code> 解析器，经过分词器处理，</p>
 <p>解析出来的第一个 <code>Token</code> 是 <code>StartTag HTML</code>，解析出来的 <code>Token</code> 会被压入到栈中，并同时创建一个 <code>HTML</code> 的 <code>DOM</code> 节点，将其加入到 <code>DOM</code> 树中</p>
 <p>这里需要补充说明下，<code>HTML</code> 解析器开始工作时，会默认创建了一个根为 <code>document</code> 的空 <code>DOM</code> 结构，同时会将一个 <code>StartTag document</code> 的 <code>Token</code> 压入栈底。然后经过分词器解析出来的第一个 <code>StartTag HTML Token</code> 会被压入到栈中，并创建一个 <code>HTML</code> 的 <code>DOM</code> 节点，添加到 <code>document</code> 上，如下图所示</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic3.png" alt="解析到StartTag `HTML`时的状态"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic3.png#pic_center" alt="解析到StartTag `HTML`时的状态"></p>
 <p>然后按照同样的流程解析出来 <code>StartTag body</code> 和 <code>StartTag div</code>，其 <code>Token</code> 栈和 <code>DOM</code> 的状态如下图所示：</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic4.png" alt="解析到StartTag div时的状态"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic4.png#pic_center" alt="解析到StartTag div时的状态"></p>
 <p>接下来解析出来的是第一个 <code>div</code> 的文本 <code>Token</code>，渲染引擎会为该 <code>Token</code> 创建一个文本节点，并将该 <code>Token</code> 添加到 <code>DOM</code> 中，它的父节点就是当前 <code>Token</code> 栈顶元素对应的节点，如下图所示：</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic5.png" alt="解析出第一个文本`Token`时的状态"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic5.png#pic_center" alt="解析出第一个文本`Token`时的状态"></p>
 <p>再接下来，分词器解析出来第一个 <code>EndTag div</code>，这时候 <code>HTML</code> 解析器会去判断当前栈顶的元素是否是 <code>StartTag div</code>，如果是则从栈顶弹出 <code>StartTag div</code>，如下图所示</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic6.png" alt="元素弹出`Token`栈示意图"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic6.png#pic_center" alt="元素弹出`Token`栈示意图"></p>
 <p>按照同样的规则，一路解析，最终结果如下图所示：</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic7.png" alt="最终解析结果"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic7.png#pic_center" alt="最终解析结果"></p>
 <h3 id="JS-是如何影响DOM生成的"><a href="#JS-是如何影响DOM生成的" class="headerlink" title="JS 是如何影响DOM生成的"></a>JS 是如何影响DOM生成的</h3><h4 id="内嵌JS"><a href="#内嵌JS" class="headerlink" title="内嵌JS"></a>内嵌JS</h4><p>例子：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">let</span> div1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;div&#x27;</span>)[<span class="number">0</span>]</span></span><br><span class="line"><span class="language-javascript">      div1.<span class="property">innerText</span> = <span class="string">&#x27;Hello Mulianju~&#x27;</span></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>我在两段 <code>div</code> 中间插入了一段 <code>JS</code> 脚本，这段脚本的解析过程就有点不一样了。<code>script</code>标签之前，所有的解析流程还是和之前介绍的一样，但是解析到<code>script</code>标签时，渲染引擎判断这是一段脚本，此时 <code>HTML</code> 解析器就会暂停 <code>DOM</code> 的解析，因为接下来的 <code>JS</code> 可能要修改当前已经生成的 <code>DOM</code> 结构。</p>
 <p>通过前面 <code>DOM</code> 生成流程分析，我们已经知道当解析到<code>script</code>脚本标签时，其 <code>DOM</code> 树结构如下所示：</p>
-<p><img data-src="/../images/articles/performance-after-enter-url/pic8.png" alt="`DOM`树"></p>
+<p><img data-src="/../images/articles/performance-after-enter-url/pic8.png#pic_center" alt="`DOM`树"></p>
 <p>这时候 <code>HTML</code> 解析器暂停工作，<code>JS</code> 引擎介入，并执行<code>script</code>标签中的这段脚本，因为这段 <code>JS</code> 脚本修改了 <code>DOM</code> 中第一个 <code>div</code> 中的内容，所以执行这段脚本之后，<code>div</code> 节点内容已经修改为 <code>Hello Mulianju~</code> 了。脚本执行完成之后，<code>HTML</code> 解析器恢复解析过程，继续解析后续的内容，直至生成最终的 <code>DOM</code>。</p>
 <h4 id="引入JS文件"><a href="#引入JS文件" class="headerlink" title="引入JS文件"></a>引入JS文件</h4><p>除了在页面中直接内嵌 <code>JS</code> 脚本之外，我们还通常需要在页面中引入 <code>JS</code> 文件，这个解析过程就稍微复杂了些，如下面代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//foo.js</span></span><br><span class="line"><span class="keyword">let</span> div1 = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;div&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">div1.<span class="property">innerText</span> = <span class="string">&#x27;Hello Mulianju~&#x27;</span></span><br></pre></td></tr></table></figure>
@@ -476,11 +476,14 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/performance-blank-screen/" rel="prev" title="前端性能优化-白屏时间(转)">
-                  <i class="fa fa-chevron-left"></i> 前端性能优化-白屏时间(转)
+                <a href="/front-end-performance/" rel="prev" title="前端性能优化--转载">
+                  <i class="fa fa-chevron-left"></i> 前端性能优化--转载
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/performance-blank-screen/" rel="next" title="前端性能优化-白屏时间(转)">
+                  前端性能优化-白屏时间(转) <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
