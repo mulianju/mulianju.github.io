@@ -5,5 +5,6 @@
     wrapper.innerHTML = '\
       <img data-src="/images/Cloud.jpg" />\
     '
+    document.body.insertBefore(wrapper, document.body.firstElementChild)
   }
 })()
