@@ -2701,3 +2701,16 @@ ul.breadcrumb li:last-child {
 #taboola-livere {
   display: none;
 }
+.footer-inner {
+  display: flex !important;
+  justify-content: center;
+  flex-flow: row wrap;
+}
+.footer-inner > * {
+  width: auto !important;
+  margin: 0 15px;
+}
+.footer-inner .powered-by,
+.footer-inner .copyright {
+  margin: 0 calc((100% - 300px) / 2);
+}
