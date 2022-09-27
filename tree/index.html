@@ -19,12 +19,12 @@
 <link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
   <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.mulianju.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="利用tree命令，可以快速输出目录树形结构，通过不同参数的设置，还可以灵活控制目录层级、忽略目录、设置树形结构颜色等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tree--一键输出目录树状图">
-<meta property="og:url" content="http://mulianju.com/tree/index.html">
+<meta property="og:url" content="https://www.mulianju.com/tree/index.html">
 <meta property="og:site_name" content="Mulianju">
 <meta property="og:description" content="利用tree命令，可以快速输出目录树形结构，通过不同参数的设置，还可以灵活控制目录层级、忽略目录、设置树形结构颜色等">
 <meta property="og:locale" content="zh_CN">
@@ -38,11 +38,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://mulianju.com/tree/">
+<link rel="canonical" href="https://www.mulianju.com/tree/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://mulianju.com/tree/","path":"tree/","title":"tree--一键输出目录树状图"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.mulianju.com/tree/","path":"tree/","title":"tree--一键输出目录树状图"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>tree--一键输出目录树状图 | Mulianju</title>
@@ -210,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://mulianju.com/tree/">
+    <link itemprop="mainEntityOfPage" href="https://www.mulianju.com/tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Cloud.jpg">
@@ -331,7 +331,7 @@
 
 <h4 id="只看两级目录"><a href="#只看两级目录" class="headerlink" title="只看两级目录"></a>只看两级目录</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">tree -L 2</span><br><span class="line"></span><br><span class="line"><span class="comment">## 输出结果</span></span><br><span class="line">.</span><br><span class="line">├── CHANGELOG.md</span><br><span class="line">├── README.md</span><br><span class="line">├── dist</span><br><span class="line">│   ├── extension.js</span><br><span class="line">│   └── extension.js.map</span><br><span class="line">├── node_modules</span><br><span class="line">│   ├── @babel</span><br><span class="line">... <span class="comment">## 这里太多省略了</span></span><br><span class="line">│   └── yocto-queue</span><br><span class="line">├── out</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── src</span><br><span class="line">│   ├── extension.ts</span><br><span class="line">│   └── process.ts</span><br><span class="line">├── tsconfig.json</span><br><span class="line">├── vsc-extension-quickstart.md</span><br><span class="line">├── webpack.config.js</span><br><span class="line">└── yarn.lock</span><br><span class="line"></span><br><span class="line">562 directories, 12 files</span><br></pre></td></tr></table></figure>
 
-<p>本文永久地址：<a target="_blank" rel="noopener" href="https://www.mulianju.com/tree/">tree–一键输出目录树状图</a></p>
+<p>本文永久地址：<a href="https://www.mulianju.com/tree/">tree–一键输出目录树状图</a></p>
 
     </div>
 
