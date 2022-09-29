@@ -1,0 +1,11 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /images/
+Disallow: /lib/
+
+Sitemap: https://www.mulianju.com/sitemap.xml
+Sitemap: https://www.mulianju.com/baidusitemap.xml
