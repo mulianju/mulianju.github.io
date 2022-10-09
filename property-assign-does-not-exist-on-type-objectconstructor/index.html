@@ -31,7 +31,7 @@
 <meta property="og:description" content="最近开始做webpack集成ts编译环境的工作，遇到很多问题，这里记录一下吧 今天的问题是在使用Object.assign的时候，编辑器报错了，提示Property ‘assign’ does not exist on type ‘ObjectConstructor’。 查了好久的资料找到几种解决方法： 利用hack写法还没搞清楚原理，暂时先这么叫吧 ——- 2018-08-22 14:10:35">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-08-16T14:40:34.000Z">
-<meta property="article:modified_time" content="2022-08-12T09:01:48.532Z">
+<meta property="article:modified_time" content="2022-10-09T11:52:36.760Z">
 <meta property="article:author" content="Mulianju">
 <meta property="article:tag" content="webpack">
 <meta property="article:tag" content="typescript">
@@ -248,7 +248,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-12 09:01:48" itemprop="dateModified" datetime="2022-08-12T09:01:48Z">2022-08-12</time>
+      <time title="修改时间：2022-10-09 11:52:36" itemprop="dateModified" datetime="2022-10-09T11:52:36Z">2022-10-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -307,6 +307,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="title class_">Object</span>.<span class="property">assign</span> != <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">  <span class="comment">// Must be writable: true, enumerable: false, configurable: true</span></span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="title class_">Object</span>, <span class="string">&quot;assign&quot;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="keyword">function</span> <span class="title function_">assign</span>(<span class="params">target, varArgs</span>) &#123; <span class="comment">// .length of function is 2</span></span><br><span class="line">      <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line">      <span class="keyword">if</span> (target == <span class="literal">null</span>) &#123; <span class="comment">// TypeError if undefined or null</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">&#x27;Cannot convert undefined or null to object&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> to = <span class="title class_">Object</span>(target);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> index = <span class="number">1</span>; index &lt; <span class="variable language_">arguments</span>.<span class="property">length</span>; index++) &#123;</span><br><span class="line">        <span class="keyword">var</span> nextSource = <span class="variable language_">arguments</span>[index];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nextSource != <span class="literal">null</span>) &#123; <span class="comment">// Skip over if undefined or null</span></span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> nextKey <span class="keyword">in</span> nextSource) &#123;</span><br><span class="line">            <span class="comment">// Avoid bugs when hasOwnProperty is shadowed</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">hasOwnProperty</span>.<span class="title function_">call</span>(nextSource, nextKey)) &#123;</span><br><span class="line">              to[nextKey] = nextSource[nextKey];</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> to;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">configurable</span>: <span class="literal">true</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>参考 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties">developer.mozilla.org</a></p>
+<p>本文永久链接: <a href="https://www.mulianju.com/property-assign-does-not-exist-on-type-objectconstructor/">https://www.mulianju.com/property-assign-does-not-exist-on-type-objectconstructor/</a> </p>
 
     </div>
 
@@ -373,13 +374,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">104k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:33</span>
+    <span title="站点阅读时长">1:35</span>
   </span>
 </div>
 <div class="busuanzi-count">
