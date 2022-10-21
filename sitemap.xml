@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/reset-wsl-root-password/</loc>
+    <loc>https://www.mulianju.com/property-assign-does-not-exist-on-type-objectconstructor/</loc>
     
     <lastmod>2022-10-09</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/property-assign-does-not-exist-on-type-objectconstructor/</loc>
+    <loc>https://www.mulianju.com/reset-wsl-root-password/</loc>
     
     <lastmod>2022-10-09</lastmod>
     
@@ -398,7 +398,7 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/about/index.html</loc>
+    <loc>https://www.mulianju.com/books/index.html</loc>
     
     <lastmod>2022-08-12</lastmod>
     
@@ -407,7 +407,7 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/books/index.html</loc>
+    <loc>https://www.mulianju.com/about/index.html</loc>
     
     <lastmod>2022-08-12</lastmod>
     
@@ -426,13 +426,6 @@
   
   <url>
     <loc>https://www.mulianju.com/tags/hexo/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -474,21 +467,7 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/ToPrimitive/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/ToNumber/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/%E5%A0%86%E5%92%8C%E6%A0%88/</loc>
+    <loc>https://www.mulianju.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -509,7 +488,42 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/vue/</loc>
+    <loc>https://www.mulianju.com/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/Abstract-class/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/class/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/ToPrimitive/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/ToNumber/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/%E5%A0%86%E5%92%8C%E6%A0%88/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -551,21 +565,42 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/%E6%8A%BD%E8%B1%A1%E7%B1%BB/</loc>
+    <loc>https://www.mulianju.com/tags/vue/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/Abstract-class/</loc>
+    <loc>https://www.mulianju.com/tags/1045/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/class/</loc>
+    <loc>https://www.mulianju.com/tags/MySQL/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/Access-denied/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/MySQL-for-Linux/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/%E9%87%8D%E7%BD%AEmysql-root%E5%AF%86%E7%A0%81/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -796,41 +831,6 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/1045/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/MySQL/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/Access-denied/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/MySQL-for-Linux/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/%E9%87%8D%E7%BD%AEmysql-root%E5%AF%86%E7%A0%81/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.mulianju.com/tags/vscode/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -964,6 +964,27 @@
   </url>
   
   <url>
+    <loc>https://www.mulianju.com/tags/github-pages/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/CNAME/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/github%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.mulianju.com/tags/html/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1000,27 +1021,6 @@
   
   <url>
     <loc>https://www.mulianju.com/tags/implements/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/github-pages/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/CNAME/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/github%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1146,20 +1146,6 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/WSL/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/Ubuntu/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.mulianju.com/tags/typescript/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -1175,6 +1161,34 @@
   
   <url>
     <loc>https://www.mulianju.com/tags/assign/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/WSL/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/Ubuntu/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/tree/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/cli/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1223,21 +1237,14 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/tags/tree/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.mulianju.com/tags/cli/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.mulianju.com/tags/yarn/</loc>
+    <lastmod>2022-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.mulianju.com/tags/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1285,13 +1292,6 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://www.mulianju.com/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-10-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
@@ -1330,14 +1330,14 @@
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/categories/canvas/</loc>
+    <loc>https://www.mulianju.com/categories/linux/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.mulianju.com/categories/linux/</loc>
+    <loc>https://www.mulianju.com/categories/canvas/</loc>
     <lastmod>2022-10-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
